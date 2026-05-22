@@ -288,9 +288,9 @@ body{
   display:flex;gap:0.5rem;margin-top:0.75rem;flex-wrap:wrap;
 }
 .scene-btn{
-  background:transparent;
-  border:1px solid rgba(255,255,255,0.25);
-  color:rgba(245,240,232,0.8);
+  background:var(--ink);
+  border:1px solid var(--ink);
+  color:var(--paper);
   padding:0.35rem 0.75rem;
   font-family:'Space Mono',monospace;
   font-size:0.6rem;
@@ -307,12 +307,14 @@ body{
   background:#f0ece0;
   border:var(--panel-border);
   position:relative;
-  overflow:hidden;
+  overflow:visible;
   border-radius:4px;
 }
 #sort-stage{
-  width:100%;height:100%;
+  width:100%;
+  height:500px;
   position:relative;
+  min-height:500px;
 }
 
 /* mesa / pilha de papers */
@@ -721,6 +723,7 @@ body{
       </div>
       <div class="section-body">
         <p>Não é só tecnologia a serviço do ensino. A plataformização reposiciona quem controla o currículo, como o sucesso é medido, e a quem os dados gerados na sala de aula pertencem.</p>
+        <p>Ben Williamson aponta uma consequência direta disso: a tendência de transformar qualquer problema educacional em algo calculável, conhecível e rapidamente resolvível. O que não pode ser medido passa a ser invisível. Pensamento crítico, vínculos afetivos, contexto cultural — dimensões que escapam ao dado — perdem espaço para métricas de eficiência e modelos preditivos.</p>
       </div>
       <p style="font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;opacity:0.5;margin-top:2rem;margin-bottom:0.6rem">AS TRÊS DIMENSÕES DO FENÔMENO</p>
       <div style="display:flex;flex-direction:column;gap:0.6rem">
@@ -855,24 +858,28 @@ body{
         <p>Cíntia e Lynn realizaram uma revisão bibliográfica de 36 textos acadêmicos publicados entre 2019 e 2024. A cena ao lado reconstitui o processo de análise de conteúdo (Bardin, 2011): as pesquisadoras leram cada texto e foram organizando em categorias que emergiam da leitura.</p>
         <p>Na cena, você vê Cíntia diante da pilha. Clique em "Próximo texto" para acompanhar o processo, ouvir o que ela pensa ao ler, e ver as categorias se formando.</p>
       </div>
-      <div style="border:var(--panel-border);padding:1rem;background:#fff8ee;margin-top:1.5rem">
-        <p style="font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;margin-bottom:0.75rem">QUATRO CATEGORIAS ENCONTRADAS</p>
+        <div style="border:var(--panel-border);padding:1rem;background:#fff8ee;margin-top:1.5rem">
+        <p style="font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;margin-bottom:0.75rem">QUATRO CATEGORIAS ENCONTRADAS <span style="opacity:0.5">(total: 36 textos)</span></p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem" id="cat-summary">
           <div style="background:#e8b84b;padding:0.6rem;border-radius:2px;text-align:center">
             <p style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;line-height:1" id="count-1">0</p>
             <p style="font-size:0.6rem;line-height:1.3;margin-top:0.2rem">Discursos e<br>Mercantilização</p>
+            <p style="font-size:0.5rem;opacity:0.6;margin-top:0.2rem">total: 8</p>
           </div>
           <div style="background:#2e7d4f;color:white;padding:0.6rem;border-radius:2px;text-align:center">
             <p style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;line-height:1" id="count-2">0</p>
             <p style="font-size:0.6rem;line-height:1.3;margin-top:0.2rem">Tecnologias,<br>Dados e Estratégia</p>
+            <p style="font-size:0.5rem;opacity:0.6;margin-top:0.2rem">total: 8</p>
           </div>
           <div style="background:#534AB7;color:white;padding:0.6rem;border-radius:2px;text-align:center">
             <p style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;line-height:1" id="count-3">0</p>
             <p style="font-size:0.6rem;line-height:1.3;margin-top:0.2rem">Práxis<br>Docente</p>
+            <p style="font-size:0.5rem;opacity:0.6;margin-top:0.2rem">total: 10</p>
           </div>
           <div style="background:#c0392b;color:white;padding:0.6rem;border-radius:2px;text-align:center">
             <p style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;line-height:1" id="count-4">0</p>
             <p style="font-size:0.6rem;line-height:1.3;margin-top:0.2rem">Avaliações Críticas<br>de IA e Big Data</p>
+            <p style="font-size:0.5rem;opacity:0.6;margin-top:0.2rem">total: 10</p>
           </div>
         </div>
         <p style="font-family:'Space Mono',monospace;font-size:0.55rem;opacity:0.5;margin-top:0.75rem;text-align:center" id="total-sorted">0 de 36 textos categorizados</p>
@@ -923,8 +930,8 @@ body{
             <text x="420" y="94" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="22" fill="white" id="svg-c4">0</text>
           </svg>
 
-          <!-- personagem Cíntia em SVG inline posicionada na cena -->
-          <div id="char-cintia" style="position:absolute;z-index:20;pointer-events:none;bottom:20px;left:50%;transform:translateX(-50%);transition:left 0.7s cubic-bezier(0.25,0.46,0.45,0.94)">
+          <!-- personagem Cíntia — sem balão dentro -->
+          <div id="char-cintia" style="position:absolute;bottom:55px;left:50%;transform:translateX(-50%);transition:left 0.7s cubic-bezier(0.25,0.46,0.45,0.94);z-index:5">
             <svg width="70" height="160" viewBox="0 0 70 160">
               <!-- corpo/blusa larga -->
               <rect x="15" y="68" width="40" height="55" rx="4" fill="#3d3d3d"/>
@@ -960,7 +967,7 @@ body{
               <ellipse cx="41" cy="36" rx="2.5" ry="2.5" fill="#1a1009"/>
               <!-- boca -->
               <path d="M 30 46 Q 35 50 40 46" fill="none" stroke="#5a2d0c" stroke-width="1.2"/>
-              <!-- texto no papel que segura -->
+              <!-- papel na mão -->
               <rect x="50" y="95" width="18" height="22" rx="1" fill="white" stroke="#ccc" stroke-width="0.8"/>
               <line x1="52" y1="100" x2="66" y2="100" stroke="#aaa" stroke-width="0.8"/>
               <line x1="52" y1="104" x2="66" y2="104" stroke="#aaa" stroke-width="0.8"/>
@@ -968,14 +975,15 @@ body{
             </svg>
           </div>
 
-          <!-- balão de fala -->
-          <div id="sort-bubble" style="position:absolute;background:white;border:1.5px solid #1a1009;border-radius:8px;padding:0.5rem 0.75rem;font-family:'IBM Plex Sans',sans-serif;font-size:0.6rem;line-height:1.4;max-width:180px;bottom:195px;left:50%;transform:translateX(-50%);z-index:10;pointer-events:none;opacity:0;transition:opacity 0.4s;text-align:center">
+          <!-- balão de fala — irmão do char, posicionado via JS -->
+          <div id="sort-bubble" style="position:absolute;background:#fffbe8;border:2px solid #1a1009;border-radius:10px;padding:0.6rem 0.85rem;font-family:'IBM Plex Sans',sans-serif;font-size:0.65rem;line-height:1.5;width:210px;pointer-events:none;opacity:0;transition:opacity 0.35s,left 0.7s cubic-bezier(0.25,0.46,0.45,0.94);text-align:left;z-index:30;box-shadow:2px 3px 0px rgba(0,0,0,0.12);bottom:228px;left:calc(50% - 105px)">
             Lendo os textos...
-            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#1a1009"></div>
+            <div style="position:absolute;bottom:-9px;left:24px;border:5px solid transparent;border-top-color:#1a1009"></div>
+            <div style="position:absolute;bottom:-7px;left:25px;border:4px solid transparent;border-top-color:#fffbe8"></div>
           </div>
 
           <!-- pilha de textos no centro -->
-          <div id="paper-pile" style="position:absolute;bottom:38px;left:50%;transform:translateX(-75px);width:60px;height:90px;cursor:pointer">
+          <div id="paper-pile" style="position:absolute;bottom:120px;left:50%;transform:translateX(-40px);width:80px;height:100px;cursor:pointer">
           </div>
         </div>
 
@@ -998,8 +1006,8 @@ body{
   <div class="two-col">
     <div>
       <div class="section-body" style="color:rgba(245,240,232,0.85)">
-        <p>Em 2023, as pesquisadoras testaram o ChatGPT com as mesmas questões da pesquisa em andamento. O objetivo era confrontar o modelo com referenciais teóricos que a equipe já conhecia bem.</p>
-        <p>Compare as respostas com os dois prompts abaixo. Depois, explore a cena das affordances: o ChatGPT confundiu funcionalidades com o conceito semiótico correto. Passe o cursor nos botões do Google Meet para ver a diferença.</p>
+        <p>Em 2023, quando o ChatGPT ainda era uma novidade incipiente no debate acadêmico, as pesquisadoras realizaram uma experimentação paralela à revisão bibliográfica: testaram o modelo com questões centrais da pesquisa sobre plataformização, para mapear limites e possibilidades da ferramenta no contexto de pesquisa.</p>
+        <p>Essa experiência não é uma discussão sobre práxis docente em si, mas sobre o próprio ato de pesquisar com IA. Os achados mostraram que as respostas variavam muito dependendo da qualidade do prompt, que conceitos especializados exigiam contexto prévio, e que verificação era obrigatória. Selecione os prompts abaixo para ver a diferença na prática.</p>
       </div>
       <div class="terminal">
         <div class="term-header">
@@ -1579,44 +1587,48 @@ window.gratReset=function(){
    S3: CATEGORIZAÇÃO
 =========================== */
 let sortIdx=0;
-const cats=[0,0,0,0]; // contagens
+const cats=[0,0,0,0]; // contagens reais: cat1=8, cat2=8, cat3=10, cat4=10
 const paperData=[
-  {cat:1,title:'Educação vigiada: Google Workspace',thought:'Aqui está o capitalismo de vigilância operando diretamente dentro da escola. Categoria 1: Mercantilização.'},
-  {cat:2,title:'Big Data no cenário educacional',thought:'Modelos preditivos nas Fatecs. Isso fala de tecnologia e estratégia de dados. Categoria 2.'},
-  {cat:3,title:'A práxis docente na pandemia',thought:'O que aconteceu com os professores quando tudo foi remoto emergencialmente. Categoria 3: Práxis.'},
-  {cat:4,title:'Colonialismo digital e territórios',thought:'Educação do campo como resistência ao colonialismo digital. Avaliação crítica. Categoria 4.'},
-  {cat:1,title:'Reforma do Ensino Médio e plataformização',thought:'Discursos de inovação mascarando dependência. Categoria 1: Discursos e Mercantilização.'},
-  {cat:2,title:'Economia da atenção e tecnologias',thought:'Dispersão e superestimulação. É sobre como a atenção vira mercadoria. Categoria 2.'},
-  {cat:3,title:'Ensino híbrido: desafios da práxis',thought:'Professores entre o presencial e o virtual, sem suporte suficiente. Categoria 3.'},
-  {cat:4,title:'IA na educação: solucionismo tecnológico',thought:'Big data como caixa-preta. O perigo de confundir eficiência com aprendizagem. Categoria 4.'},
-  {cat:1,title:'Capitalismo de vigilância na educação pública',thought:'São Paulo na pandemia com Google Classroom. Vigilância estrutural nas escolas. Categoria 1.'},
-  {cat:2,title:'Learning Analytics e docentes em AVA',thought:'Dados de navegação dos estudantes usados para decisões pedagógicas. Categoria 2.'},
-  {cat:3,title:'Ensino remoto emergencial e docência',thought:'A sobrecarga dos professores sem preparo. Práxis docente em colapso. Categoria 3.'},
-  {cat:4,title:'Psicopolítica e Big Data na cultura',thought:'Os dados comportamentais como forma de controle psicológico. Crítica. Categoria 4.'},
-  {cat:1,title:'Plataformização e ensino superior pós-pandemia',thought:'Universidades públicas na Argentina ainda dependentes das Big Techs. Categoria 1.'},
-  {cat:2,title:'Extração de dados e agenciamentos algorítmicos',thought:'O dado não é só técnico — é também afetivo. Captura de emoções. Categoria 2.'},
-  {cat:3,title:'Narrativas digitais e formação crítico-reflexiva',thought:'Professores que resistem ao tecnicismo via narrativas. Práxis transformadora. Categoria 3.'},
-  {cat:4,title:'Colonialismo digital e populações campesinas',thought:'Quem fica de fora quando o digital é hegemônico. Crítica estrutural. Categoria 4.'},
-  {cat:1,title:'Ensino superior privado: do ERE ao híbrido',thought:'A pandemia acelerou o modelo de negócios das faculdades privadas. Mercantilização.'},
-  {cat:2,title:'Nova economia psíquica e indústria cultural',thought:'Adorno atualizado pelos algoritmos. Teoria Crítica no século XXI. Categoria 2.'},
-  {cat:3,title:'Plataformização: desafio curricular no híbrido',thought:'O currículo tentando sobreviver à lógica da plataforma. Práxis docente ameaçada.'},
-  {cat:4,title:'Formação humana, identidade Big Data e educação',thought:'O que acontece com a subjetividade quando tudo é dado? Crítica filosófica. Categoria 4.'},
-  {cat:1,title:'Cibertecnicismo na educação',thought:'A falácia de que tecnologia resolve todos os problemas pedagógicos. Discurso.'},
-  {cat:2,title:'Big Data: possibilidades com Gapminder',thought:'Uso de dados abertos na educação matemática. Perspectiva mais instrumental. Cat.2.'},
-  {cat:3,title:'Vivências de professores de matemática com TDIC',thought:'Como professores reais lidaram com as ferramentas na pandemia. Práxis concreta.'},
-  {cat:4,title:'IA e formação danificada: ética rasa',thought:'Adorno e Horkheimer revisitados: inteligência artificial sem consciência crítica.'},
-  {cat:1,title:'Inteligência, sucesso e poder: discursos EdTechs',thought:'As EdTechs se vendem como meritocracia. Discurso e poder. Categoria 1.'},
-  {cat:2,title:'Big Data aplicada à educação: prospecção tecnológica',thought:'Levantamento de soluções de análise de dados. Instrumental. Categoria 2.'},
-  {cat:3,title:'Particularidades do capitalismo e privatização',thought:'A escola como mercado. Professores como trabalhadores precarizados. Práxis.'},
-  {cat:4,title:'O capitalismo de plataforma e colonização escolar',thought:'Colonização da educação pública pelo mercado digital. Crítica direta. Categoria 4.'},
-  {cat:1,title:'Tecnologias a serviço de quem? Morozov e Freire',thought:'Paulo Freire encontra o capitalismo de vigilância. Diálogo crítico. Categoria 1.'},
-  {cat:2,title:'Análise de Big Data na educação: revisão crítica',thought:'Problemas ontológicos e epistemológicos do uso de Big Data. Categoria 2 e 4.'},
-  {cat:3,title:'COVID-19, blended learning e virtualização escolar',thought:'A escola no pós-pandemia: entre o físico e o digital. Práxis docente transformada.'},
-  {cat:4,title:'Estudos de plataforma: dimensões no campo da educação',thought:'Mapeamento teórico das plataformas educacionais. Base crítica. Categoria 4.'},
-  {cat:1,title:'Educación superior: digitalización y posibilidades',thought:'Perspectiva latino-americana: tensões pedagógicas da digitalização. Categoria 1.'},
-  {cat:2,title:'Dispersos em tempos de economia da atenção',thought:'A atenção como recurso finito sendo capturado pelas plataformas. Categoria 2.'},
-  {cat:3,title:'Experiências poético-pedagógicas digitais na formação',thought:'Arte e poesia como resistência nas práticas docentes digitais. Práxis criativa.'},
-  {cat:4,title:'Colonialismo digital e disputas midiáticas',thought:'As mídias como sistemas educativos a serviço do capital. Crítica. Categoria 4.'}
+  // CAT 1: Discursos e Mercantilização (8 textos)
+  {cat:1,title:'Educação vigiada: Google Workspace',thought:'Capitalismo de vigilância dentro da escola. O Google Workspace coleta dados dos estudantes enquanto simula ser apenas uma ferramenta de ensino.'},
+  {cat:1,title:'Reforma do Ensino Médio e plataformização',thought:'Reformas educacionais como veículo de entrada das EdTechs. Discursos de inovação que mascaram dependência tecnológica e mercantilização.'},
+  {cat:1,title:'Capitalismo de vigilância e plataformização',thought:'Estudo discursivo e midiológico. A narrativa das plataformas como "democratização" esconde o modelo de negócios que explora dados.'},
+  {cat:1,title:'Inteligência, sucesso e poder: discursos EdTechs',thought:'As EdTechs se vendem com promessas de meritocracia e sucesso. Discurso e poder no mercado brasileiro de tecnologia educacional.'},
+  {cat:1,title:'Cibertecnicismo na educação',thought:'A crença de que toda solução pedagógica pode ser técnica. A falácia do cibertecnicismo que apaga as dimensões humanas do ensino.'},
+  {cat:1,title:'Ensino superior privado: ERE ao processo híbrido',thought:'A pandemia acelerou o modelo de negócios das faculdades privadas. O ensino remoto emergencial virou oportunidade de mercado.'},
+  {cat:1,title:'Tecnologias a serviço de quem? Morozov e Freire',thought:'Paulo Freire encontra o capitalismo de vigilância. Diálogo crítico sobre a quem servem as tecnologias na educação.'},
+  {cat:1,title:'Educación superior: digitalización y tensiones',thought:'Perspectiva latino-americana das tensões pedagógicas da digitalização. Desafios e possibilidades na universidade pós-pandemia.'},
+  // CAT 2: Tecnologias, Dados e Estratégia (8 textos)
+  {cat:2,title:'Nova economia psíquica e indústria cultural',thought:'Adorno atualizado pelos algoritmos. A Teoria Crítica explica como a indústria cultural algorítmica captura a subjetividade.'},
+  {cat:2,title:'Dispersos em tempos de economia da atenção',thought:'A atenção como recurso finito sendo capturado pelas plataformas. Superestimulação e impacto na capacidade de aprendizagem.'},
+  {cat:2,title:'Extração de dados e agenciamentos algorítmicos',thought:'O dado não é só técnico — é também afetivo. A captura de emoções e afetos em ambientes de aprendizagem.'},
+  {cat:2,title:'Learning Analytics e docentes em AVA',thought:'Ferramentas de análise de dados de navegação usadas para decisões pedagógicas. Quem interpreta os dados interpreta o aluno.'},
+  {cat:2,title:'Big Data no cenário educacional: Fatecs',thought:'Modelos preditivos aplicados na retenção de alunos. Perspectiva mais instrumental — mas levanta questões sobre quem define "risco".'},
+  {cat:2,title:'O conceito Big Data na educação',thought:'Fundamentos conceituais do Big Data no contexto escolar. Base necessária para entender o que está sendo coletado e como.'},
+  {cat:2,title:'Prospecção tecnológica: Big Data na educação',thought:'Levantamento das soluções de análise de dados aplicadas ao setor educacional. Panorama das ferramentas disponíveis no mercado.'},
+  {cat:2,title:'Big Data e Educação Matemática: Gapminder',thought:'Uso pedagógico de dados abertos no ensino de matemática. Uma perspectiva que integra dados sem necessariamente vigiar o aluno.'},
+  // CAT 3: Práxis Docente (10 textos)
+  {cat:3,title:'A práxis docente na pandemia',thought:'O que aconteceu com os professores quando tudo virou remoto de um dia para o outro. Adaptação forçada, sem suporte, sem preparo.'},
+  {cat:3,title:'Ensino remoto emergencial e desafios da docência',thought:'A sobrecarga dos professores sem infraestrutura. A docência colocada à prova — e muitas vezes abandonada à própria sorte.'},
+  {cat:3,title:'Ensino híbrido: desafios da práxis contemporânea',thought:'Professores entre o presencial e o virtual. O híbrido não é soma dos dois mundos — é um novo espaço de tensão pedagógica.'},
+  {cat:3,title:'COVID-19, blended learning e virtualização escolar',thought:'A escola no pós-pandemia: entre o físico e o digital. A virtualização como fenômeno que não desaparece com o fim do isolamento.'},
+  {cat:3,title:'Narrativas digitais e formação crítico-reflexiva',thought:'Professores que resistem ao tecnicismo via narrativas digitais. A formação docente que vai além do "como usar a plataforma".'},
+  {cat:3,title:'Ecologia das mídias e plataformização: currículo',thought:'O currículo tentando sobreviver à lógica da plataforma. A plataformização impõe padronização de ritmos que são, por natureza, diversos.'},
+  {cat:3,title:'O capitalismo de plataforma e colonização escolar',thought:'A dependência crescente de plataformas privadas leva à privatização do conhecimento e à marginalização das vozes críticas.'},
+  {cat:3,title:'Particularidades do capitalismo e privatização docente',thought:'A escola como mercado, professores como trabalhadores precarizados. A autonomia pedagógica como última linha de resistência.'},
+  {cat:3,title:'Experiências poético-pedagógicas digitais em artes',thought:'Arte e poesia como resistência nas práticas docentes digitais. A formação em artes visuais subvertendo a lógica da plataforma.'},
+  {cat:3,title:'Vivências de professores de matemática com TDIC',thought:'Como professores reais lidaram com as ferramentas digitais na pandemia. Relatos que mostram o cotidiano da adaptação forçada.'},
+  // CAT 4: Avaliações Críticas de IA e Big Data (10 textos)
+  {cat:4,title:'Colonialismo digital em território camponês',thought:'Quem fica de fora quando o digital é hegemônico? A educação do campo como contraponto ao colonialismo digital.'},
+  {cat:4,title:'IA na educação: Big Data e solucionismo',thought:'Big Data como caixa-preta. O perigo de confundir eficiência algorítmica com qualidade pedagógica.'},
+  {cat:4,title:'IA na educação: programação e alfabetização em dados',thought:'A ênfase excessiva em habilidades tecnológicas pode desviar da formação crítica e cidadã. Equilíbrio necessário.'},
+  {cat:4,title:'Psicopolítica e Big Data na cultura e educação',thought:'Dados comportamentais como instrumento de controle psicológico. A psicopolítica como nova forma de governar subjetividades.'},
+  {cat:4,title:'Big Data na pesquisa educacional: revisão crítica',thought:'Problemas ontológicos e epistemológicos do uso de Big Data. Correlação não é causalidade — e isso tem consequências graves.'},
+  {cat:4,title:'Formação humana, identidade big-data e educação',thought:'O que acontece com a subjetividade quando tudo é dado? A identidade humana reduzida a padrões estatísticos.'},
+  {cat:4,title:'Estudos de plataforma: dimensões na educação',thought:'Mapeamento teórico crítico das plataformas educacionais — AltSchool, Coursera, ClassDojo. O monitoramento como negócio.'},
+  {cat:4,title:'IA e formação danificada: aprendizagem profunda',thought:'Adorno e Horkheimer revisitados via IA: inteligência artificial com aprendizagem profunda e ética rasa entre professores e alunos.'},
+  {cat:4,title:'Colonialismo digital e disputas midiáticas',thought:'As mídias como sistemas educativos a serviço do capital. Disputas pelo significado da educação no ambiente digital.'},
+  {cat:4,title:'Educação Superior: retos y tensiones pedagógicas',thought:'Tensões entre inovação e tradição pedagógica. A digitalização não resolve contradições — em muitos casos, as aprofunda.'}
 ];
 
 const catPositions=[
@@ -1672,34 +1684,61 @@ function updateSortCounts(){
 window.sortNextPaper=function(){
   if(sortIdx>=paperData.length){
     const bubble=document.getElementById('sort-bubble');
-    if(bubble){bubble.textContent='Análise completa! 36 textos categorizados em 4 eixos.';bubble.classList.add('show');}
+    if(bubble){
+      bubble.textContent='';
+      bubble.innerHTML='Análise completa! 36 textos em 4 categorias.<div style="position:absolute;bottom:-9px;left:24px;border:5px solid transparent;border-top-color:#1a1009"></div><div style="position:absolute;bottom:-7px;left:25px;border:4px solid transparent;border-top-color:#fffbe8"></div>';
+      bubble.style.opacity='1';
+    }
     return;
   }
   const paper=paperData[sortIdx];
   const char=document.getElementById('char-cintia');
   const bubble=document.getElementById('sort-bubble');
-  // mostrar pensamento
-  if(bubble){
-    bubble.textContent=paper.thought;
-    bubble.classList.add('show');
-    setTimeout(()=>bubble.classList.remove('show'),3500);
-  }
-  // mover personagem para a caixa da categoria
-  const pos=catPositions[paper.cat];
-  if(char&&pos){
-    char.style.left=pos.left;
+
+  // posições horizontais para cada categoria (% do sort-stage)
+  const catLeftPct=[null,'14%','33%','52%','71%'];
+  const targetLeft=catLeftPct[paper.cat];
+
+  // mover personagem
+  if(char&&targetLeft){
+    char.style.left=targetLeft;
     char.style.transform='translateX(-50%)';
   }
+
+  // mostrar balão na mesma posição horizontal que a personagem
+  if(bubble&&targetLeft){
+    // calcula left do balão: mesma âncora do char, mas o balão tem 210px de largura
+    // então left do balão = left do char − 105px + metade do char (35px) = left − 70px
+    bubble.style.left=`calc(${targetLeft} - 70px)`;
+    bubble.style.transition='opacity 0.35s, left 0.7s cubic-bezier(0.25,0.46,0.45,0.94)';
+
+    // conteúdo
+    bubble.innerHTML=paper.thought
+      +'<div style="position:absolute;bottom:-9px;left:24px;border:5px solid transparent;border-top-color:#1a1009"></div>'
+      +'<div style="position:absolute;bottom:-7px;left:25px;border:4px solid transparent;border-top-color:#fffbe8"></div>';
+
+    // forçar reflow para garantir transition funcione
+    bubble.offsetHeight;
+    bubble.style.opacity='1';
+
+    clearTimeout(bubble._hideTimer);
+    bubble._hideTimer=setTimeout(()=>{bubble.style.opacity='0';},8000);
+  }
+
   // atualizar contagens
   cats[paper.cat-1]++;
   sortIdx++;
   updateSortCounts();
-  // rebuild pile com delay
   setTimeout(buildPile,600);
-  // voltar ao centro após um tempo
+
+  // voltar ao centro após deslocamento
   setTimeout(()=>{
     if(char){char.style.left='50%';char.style.transform='translateX(-50%)';}
-  },1800);
+    if(bubble){
+      bubble.style.left='calc(50% - 70px)';
+    }
+  },1900);
+
   if(sortIdx>=paperData.length){
     const btn=document.getElementById('sort-btn');
     if(btn)btn.textContent='✓ Todos categorizados';
@@ -1713,6 +1752,8 @@ window.sortReset=function(){
   buildPile();
   const char=document.getElementById('char-cintia');
   if(char){char.style.left='50%';char.style.transform='translateX(-50%)';}
+  const bubble=document.getElementById('sort-bubble');
+  if(bubble){bubble.style.opacity='0';bubble.style.left='calc(50% - 70px)';}
   const btn=document.getElementById('sort-btn');
   if(btn)btn.textContent='Próximo texto →';
 };
