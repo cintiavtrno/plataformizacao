@@ -1,0 +1,1287 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#1a1009;
+    --paper:#f5f0e8;
+    --red:#c0392b;
+    --yellow:#e8b84b;
+    --blue:#2c5f8a;
+    --green:#2e7d4f;
+    --orange:#d4541a;
+    --pink:#c9637a;
+    --light-blue:#a8c8e8;
+    --light-yellow:#f5e4a0;
+    --light-red:#f0b8b0;
+    --panel-border:2.5px solid var(--ink);
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    overflow-x:hidden;
+  }
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+  /* CAPA */
+  #cover{
+    min-height:100vh;
+    background:var(--ink);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .cover-left{
+    padding:3rem 2rem 3rem 3rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    z-index:2;
+    position:relative;
+  }
+
+  .cover-tag{
+    font-family:'Space Mono',monospace;
+    font-size:0.6rem;
+    color:var(--yellow);
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    margin-bottom:1rem;
+  }
+
+  .cover-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(3rem,6vw,5.5rem);
+    color:var(--paper);
+    line-height:0.92;
+    margin-bottom:0.5rem;
+  }
+
+  .cover-title span{color:var(--yellow)}
+
+  .cover-subtitle{
+    font-family:'DM Serif Display',serif;
+    font-style:italic;
+    font-size:1.1rem;
+    color:var(--light-blue);
+    margin-bottom:2rem;
+    line-height:1.5;
+  }
+
+  .cover-authors{
+    font-family:'Space Mono',monospace;
+    font-size:0.65rem;
+    color:var(--paper);
+    opacity:0.7;
+    line-height:1.8;
+  }
+
+  .cover-right{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  /* personagens SVG na capa */
+  .cover-chars{width:100%;height:100%;position:absolute;top:0;left:0}
+
+  /* geo deco fundo capa */
+  .geo-bg{
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;
+    z-index:0;
+    pointer-events:none;
+  }
+
+  .scroll-hint{
+    position:absolute;
+    bottom:2rem;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.4rem;
+    z-index:10;
+  }
+
+  .scroll-hint span{
+    font-family:'Space Mono',monospace;
+    font-size:0.55rem;
+    color:var(--paper);
+    opacity:0.5;
+    letter-spacing:0.1em;
+  }
+
+  .scroll-hint .arrow{
+    width:20px;height:20px;
+    border-right:2px solid var(--yellow);
+    border-bottom:2px solid var(--yellow);
+    transform:rotate(45deg);
+    animation:bounce 1.5s infinite;
+  }
+
+  @keyframes bounce{
+    0%,100%{transform:rotate(45deg) translateY(0)}
+    50%{transform:rotate(45deg) translateY(4px)}
+  }
+
+  /* SECTIONS */
+  .section{
+    min-height:100vh;
+    padding:4rem 2rem;
+    position:relative;
+  }
+
+  /* SEÇÃO 1 - O QUE É */
+  #section-1{
+    background:var(--paper);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    align-items:center;
+  }
+
+  .panel-left-1{
+    padding:3rem 3rem 3rem 3rem;
+    border-right:var(--panel-border);
+  }
+
+  .panel-right-1{
+    padding:3rem;
+    position:relative;
+  }
+
+  /* SEÇÃO 2 - VIGILÂNCIA */
+  #section-2{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  /* SEÇÃO 3 - PESQUISA */
+  #section-3{
+    background:#e8e0d5;
+  }
+
+  /* SEÇÃO 4 - CHATGPT EXP */
+  #section-4{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  /* SEÇÃO 5 - DADOS */
+  #section-5{
+    background:#fff8ee;
+  }
+
+  /* SEÇÃO 6 - CONCLUSÃO */
+  #section-6{
+    background:var(--yellow);
+    color:var(--ink);
+  }
+
+  .section-tag{
+    font-family:'Space Mono',monospace;
+    font-size:0.6rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    opacity:0.6;
+    margin-bottom:1rem;
+  }
+
+  .section-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(2.5rem,4vw,4rem);
+    line-height:0.95;
+    margin-bottom:1.5rem;
+  }
+
+  .section-body{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:0.9rem;
+    line-height:1.75;
+    font-weight:300;
+    max-width:520px;
+  }
+
+  .section-body p{margin-bottom:1rem}
+
+  .highlight-box{
+    border:var(--panel-border);
+    padding:1rem 1.25rem;
+    margin:1.5rem 0;
+    background:var(--yellow);
+    color:var(--ink);
+    font-family:'Space Mono',monospace;
+    font-size:0.75rem;
+    line-height:1.6;
+    position:relative;
+  }
+
+  .highlight-box::before{
+    content:attr(data-label);
+    position:absolute;
+    top:-0.6rem;
+    left:0.75rem;
+    background:var(--ink);
+    color:var(--yellow);
+    font-family:'Space Mono',monospace;
+    font-size:0.55rem;
+    letter-spacing:0.1em;
+    padding:0.1rem 0.4rem;
+  }
+
+  /* COMICS GRID */
+  .comics-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border:var(--panel-border);
+    margin:2rem 0;
+  }
+
+  .comics-panel{
+    border:var(--panel-border);
+    padding:1rem;
+    min-height:180px;
+    position:relative;
+    background:var(--paper);
+    overflow:hidden;
+  }
+
+  .comics-panel:first-child{border-left:none}
+  .comics-panel:last-child{border-right:none}
+
+  .panel-number{
+    position:absolute;
+    top:0.4rem;right:0.5rem;
+    font-family:'Space Mono',monospace;
+    font-size:0.55rem;
+    opacity:0.4;
+  }
+
+  .panel-caption{
+    position:absolute;
+    bottom:0.5rem;left:0.6rem;right:0.6rem;
+    font-family:'Space Mono',monospace;
+    font-size:0.62rem;
+    line-height:1.4;
+    color:var(--ink);
+  }
+
+  /* LAVATER-STYLE icons */
+  .geo-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 0.5rem;
+  }
+
+  /* BIG NUMBERS */
+  .big-number{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(4rem,8vw,7rem);
+    line-height:0.85;
+    color:var(--yellow);
+  }
+
+  .big-number-label{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:0.75rem;
+    font-weight:600;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    opacity:0.8;
+  }
+
+  /* ZOOM INTERACTIVE */
+  .zoom-container{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+    cursor:zoom-in;
+  }
+
+  .zoom-container.zoomed{
+    cursor:zoom-out;
+  }
+
+  .zoom-inner{
+    transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    transform-origin:center center;
+  }
+
+  .zoom-container.zoomed .zoom-inner{
+    transform:scale(2.2);
+  }
+
+  /* QUOTE BLOCK */
+  .pull-quote{
+    font-family:'DM Serif Display',serif;
+    font-style:italic;
+    font-size:clamp(1.2rem,2.5vw,1.8rem);
+    line-height:1.3;
+    border-left:4px solid var(--yellow);
+    padding-left:1.5rem;
+    margin:2rem 0;
+  }
+
+  .pull-quote.dark{border-left-color:var(--yellow);color:var(--paper)}
+
+  /* TIMELINE horizontal */
+  .timeline{
+    display:flex;
+    gap:0;
+    margin:2rem 0;
+    overflow-x:auto;
+    padding-bottom:1rem;
+  }
+
+  .timeline-item{
+    flex:0 0 160px;
+    border:var(--panel-border);
+    padding:1rem;
+    position:relative;
+    background:var(--paper);
+  }
+
+  .timeline-item + .timeline-item{border-left:none}
+
+  .timeline-year{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:1.8rem;
+    color:var(--red);
+    line-height:1;
+  }
+
+  .timeline-text{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:0.65rem;
+    line-height:1.5;
+    margin-top:0.4rem;
+    font-weight:300;
+  }
+
+  /* CATEGORIES LAVATER */
+  .lavater-categories{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    margin:2rem 0;
+    border:var(--panel-border);
+  }
+
+  .lav-cat{
+    flex:1 0 calc(50% - 0px);
+    border:1px solid var(--ink);
+    padding:1.5rem 1rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.75rem;
+    text-align:center;
+    transition:background 0.2s;
+    cursor:pointer;
+    position:relative;
+    min-height:180px;
+    justify-content:center;
+  }
+
+  .lav-cat:hover{filter:brightness(0.95)}
+
+  .lav-cat-number{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:2.5rem;
+    line-height:1;
+    opacity:0.25;
+    position:absolute;
+    top:0.3rem;left:0.5rem;
+  }
+
+  .lav-cat-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:1rem;
+    letter-spacing:0.05em;
+  }
+
+  .lav-cat-text{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:0.65rem;
+    line-height:1.5;
+    font-weight:300;
+    opacity:0.85;
+  }
+
+  /* INTERACTIVE ACCORDION */
+  .accordion{margin:1.5rem 0}
+  .acc-item{border-bottom:1px solid rgba(255,255,255,0.2)}
+  .acc-header{
+    padding:0.9rem 0;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:0.8rem;
+    font-weight:600;
+  }
+  .acc-header:hover{opacity:0.8}
+  .acc-arrow{transition:transform 0.3s;font-size:1rem}
+  .acc-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.4s ease;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:0.78rem;
+    line-height:1.7;
+    font-weight:300;
+    padding-bottom:0;
+  }
+  .acc-body.open{max-height:300px;padding-bottom:1rem}
+  .acc-arrow.open{transform:rotate(180deg)}
+
+  /* DATA VIZ - barras lavater */
+  .bar-chart{
+    display:flex;
+    flex-direction:column;
+    gap:0.6rem;
+    margin:1.5rem 0;
+  }
+
+  .bar-row{
+    display:grid;
+    grid-template-columns:160px 1fr auto;
+    align-items:center;
+    gap:0.75rem;
+  }
+
+  .bar-label{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:0.7rem;
+    line-height:1.3;
+    text-align:right;
+    font-weight:300;
+  }
+
+  .bar-track{
+    height:24px;
+    background:rgba(0,0,0,0.1);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .bar-fill{
+    height:100%;
+    transition:width 1s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+
+  .bar-value{
+    font-family:'Space Mono',monospace;
+    font-size:0.65rem;
+    font-weight:700;
+    min-width:36px;
+  }
+
+  /* CHIPS */
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.4rem;
+    margin:1rem 0;
+  }
+
+  .chip{
+    font-family:'Space Mono',monospace;
+    font-size:0.6rem;
+    border:1.5px solid currentColor;
+    padding:0.25rem 0.6rem;
+    letter-spacing:0.05em;
+  }
+
+  /* RESPONSIVE ADJUSTMENTS */
+  @media(max-width:640px){
+    #cover,#section-1{grid-template-columns:1fr}
+    .cover-right{display:none}
+    .panel-left-1{border-right:none;border-bottom:var(--panel-border)}
+    .comics-grid{grid-template-columns:1fr}
+    .bar-row{grid-template-columns:120px 1fr auto}
+    .lav-cat{flex:1 0 100%}
+    .timeline-item{flex:0 0 130px}
+  }
+
+  /* FULL BG strips */
+  .stripe-accent{
+    position:absolute;
+    top:0;right:0;
+    width:8px;
+    height:100%;
+    background:var(--yellow);
+  }
+
+  .stripe-accent-bottom{
+    position:absolute;
+    bottom:0;left:0;
+    width:100%;
+    height:6px;
+    background:var(--red);
+  }
+
+  /* FOOTNOTE */
+  .footnote-bar{
+    background:rgba(0,0,0,0.15);
+    padding:0.75rem 1.5rem;
+    font-family:'Space Mono',monospace;
+    font-size:0.58rem;
+    line-height:1.6;
+    opacity:0.7;
+  }
+
+  /* PROGRESS DOTS */
+  #progress-dots{
+    position:fixed;
+    right:1.2rem;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+    z-index:100;
+  }
+
+  .p-dot{
+    width:8px;height:8px;
+    border-radius:50%;
+    border:1.5px solid var(--ink);
+    background:transparent;
+    transition:background 0.3s,border-color 0.3s;
+    cursor:pointer;
+  }
+
+  .p-dot.active{background:var(--ink)}
+  .p-dot.dark-mode{border-color:var(--paper)}
+  .p-dot.dark-mode.active{background:var(--yellow)}
+
+  #progress-dots.on-dark .p-dot{border-color:var(--paper)}
+  #progress-dots.on-dark .p-dot.active{background:var(--yellow)}
+
+  /* SECTION DIVIDER */
+  .divider-geo{
+    width:100%;
+    overflow:hidden;
+    line-height:0;
+  }
+</style>
+
+<h2 class="sr-only">Ensaio digital interativo sobre plataformização da educação, apresentando pesquisa da UFBA sobre como plataformas digitais reconfiguram práticas pedagógicas no Brasil.</h2>
+
+<nav id="progress-dots" aria-label="Navegação por seções">
+  <div class="p-dot active" data-section="cover" onclick="scrollToSection('cover')" title="Capa"></div>
+  <div class="p-dot" data-section="section-1" onclick="scrollToSection('section-1')" title="O que é plataformização"></div>
+  <div class="p-dot" data-section="section-2" onclick="scrollToSection('section-2')" title="Vigilância e dados"></div>
+  <div class="p-dot" data-section="section-3" onclick="scrollToSection('section-3')" title="A pesquisa"></div>
+  <div class="p-dot" data-section="section-4" onclick="scrollToSection('section-4')" title="Experimento ChatGPT"></div>
+  <div class="p-dot" data-section="section-5" onclick="scrollToSection('section-5')" title="Achados"></div>
+  <div class="p-dot" data-section="section-6" onclick="scrollToSection('section-6')" title="E agora?"></div>
+</nav>
+
+<!-- CAPA -->
+<section id="cover">
+  <svg class="geo-bg" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">
+    <rect x="-50" y="-50" width="700" height="900" fill="#1a1009"/>
+    <circle cx="480" cy="150" r="180" fill="#c0392b" opacity="0.18"/>
+    <rect x="320" y="300" width="200" height="200" fill="#e8b84b" opacity="0.1" transform="rotate(20,420,400)"/>
+    <circle cx="100" cy="600" r="120" fill="#2c5f8a" opacity="0.15"/>
+    <line x1="0" y1="200" x2="600" y2="200" stroke="#e8b84b" stroke-width="0.5" opacity="0.2"/>
+    <line x1="0" y1="400" x2="600" y2="400" stroke="#e8b84b" stroke-width="0.5" opacity="0.2"/>
+    <line x1="0" y1="600" x2="600" y2="600" stroke="#e8b84b" stroke-width="0.5" opacity="0.2"/>
+    <line x1="200" y1="0" x2="200" y2="800" stroke="#e8b84b" stroke-width="0.5" opacity="0.2"/>
+    <line x1="400" y1="0" x2="400" y2="800" stroke="#e8b84b" stroke-width="0.5" opacity="0.2"/>
+  </svg>
+
+  <div class="cover-left">
+    <p class="cover-tag">Ensaio digital · Pesquisa UFBA/CNPq</p>
+    <h1 class="cover-title">PLATA<span>FORMI</span>ZAÇÃO<br>DA EDUCA<span>ÇÃO</span></h1>
+    <p class="cover-subtitle">Quando a sala de aula vira dado,<br>quem fica com o conhecimento?</p>
+    <p class="cover-authors">
+      Cíntia da Silva Vitorino<br>
+      Lynn Alves<br>
+      Rede de Pesquisa Comunidades Virtuais · UFBA
+    </p>
+    <div style="margin-top:2rem">
+      <div class="chips">
+        <span class="chip" style="color:var(--yellow)">Plataformização</span>
+        <span class="chip" style="color:var(--light-blue)">Economia da atenção</span>
+        <span class="chip" style="color:var(--light-red)">Capitalismo de vigilância</span>
+        <span class="chip" style="color:var(--paper)">Práxis docente</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-right">
+    <!-- Personagens Cíntia e Lynn estilo Chris Ware -->
+    <svg viewBox="0 0 400 600" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="position:absolute;top:0;left:0">
+      <!-- CÍNTIA - esquerda -->
+      <!-- corpo -->
+      <rect x="40" y="230" width="70" height="120" rx="4" fill="#6B3D26"/>
+      <!-- calça larga -->
+      <rect x="35" y="330" width="35" height="80" rx="4" fill="#2a2a2a"/>
+      <rect x="68" y="330" width="35" height="80" rx="4" fill="#2a2a2a"/>
+      <!-- tênis -->
+      <rect x="30" y="406" width="42" height="14" rx="3" fill="#c0392b"/>
+      <rect x="63" y="406" width="42" height="14" rx="3" fill="#c0392b"/>
+      <!-- blusa larga -->
+      <rect x="32" y="220" width="86" height="115" rx="6" fill="#3d3d3d"/>
+      <rect x="22" y="230" width="25" height="70" rx="4" fill="#3d3d3d"/>
+      <rect x="103" y="230" width="25" height="70" rx="4" fill="#3d3d3d"/>
+      <!-- pescoço -->
+      <rect x="63" y="195" width="24" height="30" rx="3" fill="#8B5E3C"/>
+      <!-- cabeça -->
+      <ellipse cx="75" cy="175" rx="38" ry="42" fill="#8B5E3C"/>
+      <!-- cabelo cacheado 3b grande -->
+      <ellipse cx="75" cy="140" rx="50" ry="48" fill="#1a1009"/>
+      <ellipse cx="40" cy="155" rx="22" ry="28" fill="#1a1009"/>
+      <ellipse cx="110" cy="155" rx="22" ry="28" fill="#1a1009"/>
+      <ellipse cx="60" cy="125" rx="18" ry="20" fill="#1a1009"/>
+      <ellipse cx="90" cy="122" rx="18" ry="20" fill="#1a1009"/>
+      <ellipse cx="75" cy="118" rx="20" ry="18" fill="#1a1009"/>
+      <!-- óculos -->
+      <rect x="55" y="168" width="18" height="13" rx="3" fill="none" stroke="#e8b84b" stroke-width="2"/>
+      <rect x="77" y="168" width="18" height="13" rx="3" fill="none" stroke="#e8b84b" stroke-width="2"/>
+      <line x1="73" y1="174" x2="77" y2="174" stroke="#e8b84b" stroke-width="1.5"/>
+      <line x1="55" y1="174" x2="48" y2="172" stroke="#e8b84b" stroke-width="1.5"/>
+      <line x1="95" y1="174" x2="102" y2="172" stroke="#e8b84b" stroke-width="1.5"/>
+      <!-- piercing nariz (dois lados) -->
+      <circle cx="62" cy="184" r="2.5" fill="#c0c0c0" stroke="#999" stroke-width="0.5"/>
+      <circle cx="88" cy="184" r="2.5" fill="#c0c0c0" stroke="#999" stroke-width="0.5"/>
+      <!-- microdermal esquerdo do rosto -->
+      <circle cx="52" cy="170" r="2" fill="#c0c0c0" stroke="#999" stroke-width="0.5"/>
+      <!-- boca -->
+      <path d="M 67 192 Q 75 198 83 192" fill="none" stroke="#5a2d0c" stroke-width="1.5"/>
+      <!-- olhos -->
+      <ellipse cx="64" cy="173" rx="4" ry="4" fill="#1a1009"/>
+      <ellipse cx="86" cy="173" rx="4" ry="4" fill="#1a1009"/>
+
+      <!-- LYNN - direita -->
+      <!-- calça -->
+      <rect x="245" y="330" width="38" height="80" rx="4" fill="#c0392b"/>
+      <rect x="281" y="330" width="38" height="80" rx="4" fill="#c0392b"/>
+      <!-- sapatos -->
+      <ellipse cx="264" cy="415" rx="22" ry="9" fill="#2a2a2a"/>
+      <ellipse cx="300" cy="415" rx="22" ry="9" fill="#2a2a2a"/>
+      <!-- blusa colorida -->
+      <rect x="235" y="215" width="95" height="125" rx="6" fill="#2e7d4f"/>
+      <!-- listras na blusa -->
+      <rect x="235" y="240" width="95" height="10" fill="#e8b84b" opacity="0.7"/>
+      <rect x="235" y="270" width="95" height="10" fill="#2c5f8a" opacity="0.7"/>
+      <rect x="235" y="300" width="95" height="10" fill="#c9637a" opacity="0.7"/>
+      <!-- mangas -->
+      <rect x="220" y="225" width="22" height="65" rx="4" fill="#2e7d4f"/>
+      <rect x="323" y="225" width="22" height="65" rx="4" fill="#2e7d4f"/>
+      <!-- pescoço -->
+      <rect x="264" y="190" width="28" height="30" rx="3" fill="#e8c9b0"/>
+      <!-- cabeça -->
+      <ellipse cx="278" cy="165" rx="40" ry="44" fill="#e8c9b0"/>
+      <!-- cabelo curto ruivo no pescoço -->
+      <ellipse cx="278" cy="132" rx="40" ry="28" fill="#c0392b"/>
+      <ellipse cx="238" cy="155" rx="16" ry="20" fill="#c0392b"/>
+      <ellipse cx="318" cy="155" rx="16" ry="20" fill="#c0392b"/>
+      <!-- óculos verde -->
+      <rect x="255" y="158" width="20" height="14" rx="3" fill="none" stroke="#2e7d4f" stroke-width="2.5"/>
+      <rect x="279" y="158" width="20" height="14" rx="3" fill="none" stroke="#2e7d4f" stroke-width="2.5"/>
+      <line x1="275" y1="165" x2="279" y2="165" stroke="#2e7d4f" stroke-width="2"/>
+      <line x1="255" y1="165" x2="248" y2="163" stroke="#2e7d4f" stroke-width="2"/>
+      <line x1="299" y1="165" x2="306" y2="163" stroke="#2e7d4f" stroke-width="2"/>
+      <!-- boca -->
+      <path d="M 268 182 Q 278 190 288 182" fill="none" stroke="#8a4020" stroke-width="1.5"/>
+      <!-- olhos -->
+      <ellipse cx="265" cy="163" rx="4.5" ry="4" fill="#3d2a1a"/>
+      <ellipse cx="289" cy="163" rx="4.5" ry="4" fill="#3d2a1a"/>
+
+      <!-- PLATAFORMA / base geométrica Lavater -->
+      <rect x="20" y="490" width="360" height="60" fill="#1a1009" opacity="0.9"/>
+      <!-- grade -->
+      <line x1="20" y1="510" x2="380" y2="510" stroke="#e8b84b" stroke-width="0.5" opacity="0.5"/>
+      <line x1="20" y1="530" x2="380" y2="530" stroke="#e8b84b" stroke-width="0.5" opacity="0.5"/>
+      <line x1="100" y1="490" x2="100" y2="550" stroke="#e8b84b" stroke-width="0.5" opacity="0.5"/>
+      <line x1="180" y1="490" x2="180" y2="550" stroke="#e8b84b" stroke-width="0.5" opacity="0.5"/>
+      <line x1="260" y1="490" x2="260" y2="550" stroke="#e8b84b" stroke-width="0.5" opacity="0.5"/>
+      <text x="200" y="524" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="14" fill="#e8b84b" opacity="0.8">PLATAFORMAS DIGITAIS DE ENSINO</text>
+
+      <!-- DADOS flutuando estilo Lavater -->
+      <circle cx="150" cy="85" r="12" fill="#e8b84b" opacity="0.8"/>
+      <circle cx="180" cy="65" r="7" fill="#c0392b" opacity="0.7"/>
+      <circle cx="220" cy="78" r="9" fill="#2c5f8a" opacity="0.7"/>
+      <rect x="135" y="50" width="14" height="14" fill="#2e7d4f" opacity="0.7" transform="rotate(20,142,57)"/>
+      <text x="150" y="89" text-anchor="middle" font-family="'Space Mono',monospace" font-size="8" fill="#1a1009" font-weight="700">data</text>
+
+      <!-- SETAS de dados saindo das personagens -->
+      <path d="M 115 280 Q 160 200 150 100" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3" opacity="0.6" marker-end="url(#arr-red)"/>
+      <path d="M 260 270 Q 230 190 220 90" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+      <defs>
+        <marker id="arr-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="scroll-hint">
+    <span>rolar para baixo</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- SEÇÃO 1 - O QUE É PLATAFORMIZAÇÃO -->
+<section id="section-1">
+  <div class="panel-left-1">
+    <p class="section-tag">01 · Conceito</p>
+    <h2 class="section-title">O que é<br>plataformi<br>zação?</h2>
+    <div class="section-body">
+      <p>Pense numa plataforma de videoconferência que sua escola ou universidade adotou durante a pandemia. Parece uma ferramenta simples para reunir pessoas. Por baixo, porém, toda interação vira dado: quanto tempo você ficou com a câmera aberta, quando pausou, o que digitou no chat, quando largou a reunião.</p>
+      <p>Plataformização é isso: a reorganização de práticas educacionais inteiras em torno de infraestruturas digitais que coletam, processam e monetizam o comportamento de estudantes e professores.</p>
+    </div>
+
+    <div class="highlight-box" data-label="Definição">
+      "A penetração de infraestruturas, processos econômicos e políticas das plataformas digitais em diferentes setores da vida, reorganizando-os em torno de uma nova lógica baseada em dataficação."<br><br>
+      <span style="opacity:0.6">Poell, Nieborg e Van Dijck (2020)</span>
+    </div>
+
+    <div class="section-body">
+      <p>Não se trata apenas de usar tecnologia para ensinar. A plataformização muda quem controla o currículo, como o sucesso é medido e a quem pertencem os dados gerados na sala de aula.</p>
+    </div>
+  </div>
+
+  <div class="panel-right-1">
+    <div class="stripe-accent"></div>
+    <p class="section-tag" style="margin-bottom:1rem">três dimensões do fenômeno</p>
+
+    <div class="lavater-categories" style="border:none;flex-direction:column;gap:0.8rem">
+
+      <!-- Dimensão 1 -->
+      <div style="border:var(--panel-border);display:flex;gap:1rem;padding:1rem;align-items:flex-start;background:#faf7f0">
+        <svg width="48" height="48" viewBox="0 0 48 48" style="flex-shrink:0">
+          <circle cx="24" cy="24" r="20" fill="#e8b84b"/>
+          <circle cx="24" cy="24" r="12" fill="#1a1009"/>
+          <circle cx="24" cy="24" r="6" fill="#e8b84b"/>
+        </svg>
+        <div>
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1rem;margin-bottom:0.3rem;letter-spacing:0.05em">Economia da atenção</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.72rem;line-height:1.55;font-weight:300">Dados psíquicos e emocionais transformados em valor econômico. Cada clique, pausa, reação vira insumo para prever e modificar comportamentos.</p>
+        </div>
+      </div>
+
+      <!-- Dimensão 2 -->
+      <div style="border:var(--panel-border);display:flex;gap:1rem;padding:1rem;align-items:flex-start;background:#faf7f0">
+        <svg width="48" height="48" viewBox="0 0 48 48" style="flex-shrink:0">
+          <rect x="4" y="4" width="18" height="18" fill="#c0392b"/>
+          <rect x="26" y="4" width="18" height="18" fill="#c0392b" opacity="0.5"/>
+          <rect x="4" y="26" width="18" height="18" fill="#c0392b" opacity="0.5"/>
+          <rect x="26" y="26" width="18" height="18" fill="#c0392b"/>
+        </svg>
+        <div>
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1rem;margin-bottom:0.3rem;letter-spacing:0.05em">Dataficação</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.72rem;line-height:1.55;font-weight:300">A vida escolar convertida em fluxo contínuo de dados digitais. Presença, participação, engajamento: tudo se torna calculável e armazenável.</p>
+        </div>
+      </div>
+
+      <!-- Dimensão 3 -->
+      <div style="border:var(--panel-border);display:flex;gap:1rem;padding:1rem;align-items:flex-start;background:#faf7f0">
+        <svg width="48" height="48" viewBox="0 0 48 48" style="flex-shrink:0">
+          <polygon points="24,4 44,44 4,44" fill="#2c5f8a"/>
+          <polygon points="24,14 38,40 10,40" fill="#f5f0e8"/>
+          <circle cx="24" cy="32" r="4" fill="#2c5f8a"/>
+        </svg>
+        <div>
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1rem;margin-bottom:0.3rem;letter-spacing:0.05em">Mediação algorítmica</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.72rem;line-height:1.55;font-weight:300">Algoritmos que filtram, recomendam e organizam o que estudantes e professores veem e fazem, definindo tendências e "potencialidades" de aprendizagem.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stripe-accent-bottom"></div>
+  </div>
+</section>
+
+<!-- SEÇÃO 2 - CAPITALISMO DE VIGILÂNCIA -->
+<section id="section-2" style="padding:4rem 3rem;position:relative;overflow:hidden">
+  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+    <circle cx="700" cy="100" r="220" fill="#c0392b" opacity="0.06"/>
+    <circle cx="100" cy="500" r="180" fill="#2c5f8a" opacity="0.07"/>
+    <line x1="0" y1="150" x2="800" y2="150" stroke="#e8b84b" stroke-width="0.5" opacity="0.15"/>
+    <line x1="0" y1="300" x2="800" y2="300" stroke="#e8b84b" stroke-width="0.5" opacity="0.15"/>
+    <line x1="0" y1="450" x2="800" y2="450" stroke="#e8b84b" stroke-width="0.5" opacity="0.15"/>
+  </svg>
+
+  <p class="section-tag" style="color:var(--yellow)">02 · Capitalismo de vigilância</p>
+  <h2 class="section-title" style="color:var(--paper);max-width:600px">A escola<br>virou<br>laboratório</h2>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:2rem">
+    <div>
+      <div class="section-body" style="color:rgba(245,240,232,0.85)">
+        <p>Shoshana Zuboff cunhou "capitalismo de vigilância" para descrever um modelo econômico que se sustenta pela captura massiva de dados comportamentais. A Google foi pioneira: percebeu que as buscas on-line produziam um subproduto riquíssimo, os dados colaterais, que revelam sentimentos, emoções e intenções de cada usuário.</p>
+        <p>Esse mecanismo migrou para a educação. Plataformas como Google Workspace, Microsoft Teams e Zoom operam sob a mesma lógica: oferecem serviços aparentemente gratuitos enquanto extraem dados de estudantes e professores para alimentar sistemas de predição e publicidade.</p>
+      </div>
+
+      <div class="pull-quote dark">
+        "Estudantes e docentes tornam-se não apenas usuários, mas matéria-prima de uma economia baseada em vigilância e predição de comportamentos."
+      </div>
+    </div>
+
+    <div>
+      <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--yellow);letter-spacing:0.1em;margin-bottom:1rem">CONCENTRAÇÃO DE MERCADO NO ENSINO BRASILEIRO</p>
+
+      <div class="bar-chart" id="bar-chart-1">
+        <div class="bar-row">
+          <div class="bar-label" style="color:rgba(245,240,232,0.7)">Universidades com<br>Google/Microsoft/Amazon</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:0%;background:#e8b84b" data-width="70"></div>
+          </div>
+          <div class="bar-value" style="color:var(--yellow)">70%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="color:rgba(245,240,232,0.7)">EdTechs usando<br>Amazon Web Services</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:0%;background:#c0392b" data-width="49"></div>
+          </div>
+          <div class="bar-value" style="color:#e88484">49%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="color:rgba(245,240,232,0.7)">Escolas públicas com<br>Google (estado/município)</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:0%;background:#a8c8e8" data-width="90"></div>
+          </div>
+          <div class="bar-value" style="color:var(--light-blue)">~90%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="color:rgba(245,240,232,0.7)">Escolas públicas com<br>plataformas digitais (2019)</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:0%;background:#2e7d4f" data-width="14"></div>
+          </div>
+          <div class="bar-value" style="color:#7ec897">14%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="color:rgba(245,240,232,0.7)">Gestores usando grupos<br>em apps sociais (2021)</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:0%;background:#c9637a" data-width="91"></div>
+          </div>
+          <div class="bar-value" style="color:#f4a0b5">91%</div>
+        </div>
+      </div>
+
+      <p style="font-family:'Space Mono',monospace;font-size:0.55rem;color:rgba(245,240,232,0.4);margin-top:0.75rem;line-height:1.6">Fontes: Evangelista e Gonsales (2024), NIC.br (2022a)</p>
+
+      <div style="border:1px solid rgba(255,255,255,0.2);padding:1rem;margin-top:1.5rem">
+        <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--yellow);margin-bottom:0.5rem">O PARADOXO DA GRATUIDADE</p>
+        <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.75rem;line-height:1.65;font-weight:300;color:rgba(245,240,232,0.8)">O Google ofereceu seus serviços gratuitamente às universidades desde 2014, gerando economia estimada em até R$ 6 milhões/ano no caso da USP. Em 2021, anunciou o fim da gratuidade, forçando instituições a pagar ou a realizar custosas migrações. Os recursos públicos que poderiam ter desenvolvido infraestruturas próprias foram, enquanto isso, negligenciados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 3 - A PESQUISA -->
+<section id="section-3" style="padding:4rem 3rem">
+  <p class="section-tag">03 · A pesquisa</p>
+  <h2 class="section-title">Uma rede de<br>pesquisadoras<br>na UFBA</h2>
+
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:3rem;align-items:start;margin-top:2rem">
+    <div>
+      <div class="section-body">
+        <p>Este ensaio nasce de um projeto financiado pelo CNPq, desenvolvido na Universidade Federal da Bahia: "Plataformas Digitais de Ensino: um estudo de caso da interação dos docentes das universidades e institutos no Nordeste". A pesquisa envolve UFBA, UNEB, IFBA e IF Baiano.</p>
+        <p>Uma revisão bibliográfica de 36 textos acadêmicos publicados entre 2019 e 2024 mapeou as discussões mais relevantes sobre plataformização educacional, organizando-as em quatro categorias.</p>
+      </div>
+
+      <div class="lavater-categories" style="margin-top:1.5rem">
+        <div class="lav-cat" style="background:#fff8ee" onclick="toggleCat(this)">
+          <span class="lav-cat-number">1</span>
+          <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="#e8b84b" opacity="0.7"/><path d="M12 20 h16 M20 12 v16" stroke="#1a1009" stroke-width="2"/></svg>
+          <p class="lav-cat-title">Discursos e Mercantilização</p>
+          <p class="lav-cat-text" style="display:none">8 textos sobre como educação vira produto: reformas do ensino médio, plataformização da Unicamp ao Google, discursos de inovação que mascaram dependência tecnológica.</p>
+        </div>
+        <div class="lav-cat" style="background:#f0f8f4" onclick="toggleCat(this)">
+          <span class="lav-cat-number">2</span>
+          <svg width="40" height="40" viewBox="0 0 40 40"><rect x="4" y="4" width="14" height="14" fill="#2e7d4f" opacity="0.8"/><rect x="22" y="4" width="14" height="14" fill="#2e7d4f" opacity="0.5"/><rect x="4" y="22" width="14" height="14" fill="#2e7d4f" opacity="0.5"/><rect x="22" y="22" width="14" height="14" fill="#2e7d4f" opacity="0.8"/></svg>
+          <p class="lav-cat-title">Tecnologias, Dados e Estratégia</p>
+          <p class="lav-cat-text" style="display:none">8 textos sobre Big Data, economy da atenção, learning analytics. A tensão entre "personalização do ensino" e extração de valor comportamental.</p>
+        </div>
+        <div class="lav-cat" style="background:#f5f0f8" onclick="toggleCat(this)">
+          <span class="lav-cat-number">3</span>
+          <svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="16" rx="12" ry="10" fill="#534AB7" opacity="0.7"/><rect x="14" y="24" width="12" height="12" rx="2" fill="#534AB7" opacity="0.5"/></svg>
+          <p class="lav-cat-title">Práxis Docente</p>
+          <p class="lav-cat-text" style="display:none">10 textos sobre o que acontece com professores quando algoritmos tomam decisões pedagógicas. Ensino remoto emergencial, ensino híbrido, e a precarização da autonomia docente.</p>
+        </div>
+        <div class="lav-cat" style="background:#fff0f0" onclick="toggleCat(this)">
+          <span class="lav-cat-number">4</span>
+          <svg width="40" height="40" viewBox="0 0 40 40"><polygon points="20,4 36,36 4,36" fill="#c0392b" opacity="0.7"/><line x1="20" y1="16" x2="20" y2="28" stroke="white" stroke-width="2.5"/><circle cx="20" cy="32" r="2" fill="white"/></svg>
+          <p class="lav-cat-title">Avaliações Críticas de IA e Big Data</p>
+          <p class="lav-cat-text" style="display:none">10 textos sobre colonialismo digital, psicopolítica, solucionismo tecnológico. Quando eficiência é mais valorizada do que pensamento crítico.</p>
+        </div>
+      </div>
+      <p style="font-family:'Space Mono',monospace;font-size:0.6rem;opacity:0.5;margin-top:0.5rem">toque em cada categoria para expandir</p>
+    </div>
+
+    <div>
+      <p style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;opacity:0.5;margin-bottom:1.5rem">LINHA DO TEMPO</p>
+
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="border:var(--panel-border);border-bottom:none;padding:1rem;background:#fff8ee">
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--red);line-height:1">2016</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.68rem;line-height:1.5;font-weight:300;margin-top:0.3rem">Unicamp adere ao Google Workspace. Início sistêmico da dependência.</p>
+        </div>
+        <div style="border:var(--panel-border);border-bottom:none;padding:1rem;background:#f0f8f4">
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--red);line-height:1">2019</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.68rem;line-height:1.5;font-weight:300;margin-top:0.3rem">Apenas 14% das escolas públicas trabalhavam pedagogicamente com plataformas digitais.</p>
+        </div>
+        <div style="border:var(--panel-border);border-bottom:none;padding:1rem;background:#fff0f0">
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--red);line-height:1">2020</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.68rem;line-height:1.5;font-weight:300;margin-top:0.3rem">Pandemia como catalisador. Adoção emergencial e massiva de plataformas corporativas sem debate crítico.</p>
+        </div>
+        <div style="border:var(--panel-border);border-bottom:none;padding:1rem;background:#f5f0f8">
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--red);line-height:1">2021</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.68rem;line-height:1.5;font-weight:300;margin-top:0.3rem">91% dos gestores usavam apps sociais. Google anuncia fim da gratuidade. 70% das universidades dependentes de 3 corporações.</p>
+        </div>
+        <div style="border:var(--panel-border);padding:1rem;background:#e8e0d5">
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--red);line-height:1">2024</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.68rem;line-height:1.5;font-weight:300;margin-top:0.3rem">Revisão bibliográfica mapeia 36 textos. Plataformização consolidada como estrutura permanente do ensino superior.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 4 - EXPERIMENTO CHATGPT -->
+<section id="section-4" style="padding:4rem 3rem;position:relative;overflow:hidden">
+  <svg style="position:absolute;top:0;right:0;width:300px;height:300px;pointer-events:none;opacity:0.06" viewBox="0 0 300 300">
+    <circle cx="150" cy="150" r="130" fill="none" stroke="#e8b84b" stroke-width="2"/>
+    <circle cx="150" cy="150" r="100" fill="none" stroke="#e8b84b" stroke-width="1.5"/>
+    <circle cx="150" cy="150" r="70" fill="none" stroke="#e8b84b" stroke-width="1"/>
+    <circle cx="150" cy="150" r="40" fill="none" stroke="#e8b84b" stroke-width="0.5"/>
+  </svg>
+
+  <p class="section-tag" style="color:var(--yellow)">04 · Experimento</p>
+  <h2 class="section-title" style="color:var(--paper)">Uma jornada<br>com o ChatGPT</h2>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem;align-items:start">
+    <div>
+      <div class="section-body" style="color:rgba(245,240,232,0.85)">
+        <p>Em 2023, quando o ChatGPT era ainda uma novidade que agitava o imaginário acadêmico, as pesquisadoras fizeram algo simples e revelador: testaram o modelo com as mesmas perguntas da pesquisa em andamento.</p>
+        <p>O objetivo era confrontar as respostas do chatbot com os referenciais teóricos que a equipe já conhecia bem. O que encontraram foi ao mesmo tempo previsível e esclarecedor.</p>
+      </div>
+
+      <!-- COMICS PANELS -->
+      <div class="comics-grid" style="margin-top:1.5rem;border-color:rgba(255,255,255,0.3)">
+        <div class="comics-panel" style="background:#1a1009;border-color:rgba(255,255,255,0.2)">
+          <span class="panel-number" style="color:rgba(255,255,255,0.3)">01</span>
+          <div style="display:flex;align-items:center;justify-content:center;height:100px;margin-bottom:0.5rem">
+            <svg width="60" height="60" viewBox="0 0 60 60">
+              <circle cx="30" cy="30" r="25" fill="none" stroke="#e8b84b" stroke-width="1.5"/>
+              <text x="30" y="36" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="22" fill="#e8b84b">?</text>
+            </svg>
+          </div>
+          <p class="panel-caption" style="color:rgba(245,240,232,0.7)">Pergunta direta: "O que é plataformização da educação?"</p>
+        </div>
+        <div class="comics-panel" style="background:#1a1009;border-color:rgba(255,255,255,0.2)">
+          <span class="panel-number" style="color:rgba(255,255,255,0.3)">02</span>
+          <div style="display:flex;align-items:center;justify-content:center;height:100px;margin-bottom:0.5rem">
+            <svg width="70" height="60" viewBox="0 0 70 60">
+              <rect x="5" y="5" width="60" height="50" rx="4" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              <line x1="15" y1="20" x2="55" y2="20" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              <line x1="15" y1="28" x2="55" y2="28" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              <line x1="15" y1="36" x2="42" y2="36" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              <circle cx="12" cy="48" r="3" fill="#e8b84b"/>
+              <text x="20" y="52" font-family="'Space Mono',monospace" font-size="7" fill="#e8b84b">superficial</text>
+            </svg>
+          </div>
+          <p class="panel-caption" style="color:rgba(245,240,232,0.7)">Resposta: foco em "flexibilidade" e "personalização". Sem crítica.</p>
+        </div>
+        <div class="comics-panel" style="background:#1a1009;border-color:rgba(255,255,255,0.2)">
+          <span class="panel-number" style="color:rgba(255,255,255,0.3)">03</span>
+          <div style="display:flex;align-items:center;justify-content:center;height:100px;margin-bottom:0.5rem">
+            <svg width="70" height="60" viewBox="0 0 70 60">
+              <rect x="5" y="5" width="60" height="50" rx="4" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              <text x="35" y="22" text-anchor="middle" font-family="'Space Mono',monospace" font-size="6" fill="rgba(255,255,255,0.5)">contexto rico</text>
+              <line x1="15" y1="26" x2="55" y2="26" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              <line x1="15" y1="33" x2="55" y2="33" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              <line x1="15" y1="40" x2="55" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              <circle cx="12" cy="52" r="3" fill="#2e7d4f"/>
+              <text x="20" y="56" font-family="'Space Mono',monospace" font-size="7" fill="#7ec897">mais crítico</text>
+            </svg>
+          </div>
+          <p class="panel-caption" style="color:rgba(245,240,232,0.7)">Com contexto específico (persona de estudioso), resposta ficou mais crítica.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--yellow);letter-spacing:0.1em;margin-bottom:1rem">ENGENHARIA DE PROMPT: O QUE APRENDEMOS</p>
+
+      <div class="accordion">
+        <div class="acc-item" style="border-color:rgba(255,255,255,0.15)">
+          <div class="acc-header" style="color:var(--paper)" onclick="toggleAcc(this)">
+            <span>O prompt determina a profundidade</span>
+            <span class="acc-arrow">▼</span>
+          </div>
+          <div class="acc-body" style="color:rgba(245,240,232,0.75)">
+            Sem contexto, o ChatGPT associou plataformização a benefícios como "flexibilidade" e "personalização do ensino". Com um contexto que descrevia um estudioso crítico do tema, a resposta incluiu reflexões sobre capitalismo de vigilância e coleta de dados. O modelo espelha o que o usuário projeta nele.
+          </div>
+        </div>
+        <div class="acc-item" style="border-color:rgba(255,255,255,0.15)">
+          <div class="acc-header" style="color:var(--paper)" onclick="toggleAcc(this)">
+            <span>Conceitos sem definição = confusão</span>
+            <span class="acc-arrow">▼</span>
+          </div>
+          <div class="acc-body" style="color:rgba(245,240,232,0.75)">
+            Quando perguntado sobre as "affordances do Google Meet", o ChatGPT listou funcionalidades (gravar, compartilhar tela) confundindo com o conceito semiótico de affordance. Ao ser corrigido, errou de novo. Somente ao receber a definição correta respondeu adequadamente. O modelo precisa do conhecimento que o usuário já tem.
+          </div>
+        </div>
+        <div class="acc-item" style="border-color:rgba(255,255,255,0.15)">
+          <div class="acc-header" style="color:var(--paper)" onclick="toggleAcc(this)">
+            <span>Dados precisos: cuidado sempre</span>
+            <span class="acc-arrow">▼</span>
+          </div>
+          <div class="acc-body" style="color:rgba(245,240,232,0.75)">
+            O ChatGPT afirmou que o Microsoft Teams suportava 10 mil participantes simultâneos numa videoconferência. O limite real era 1 mil. Ao ser confrontado com a fonte, o modelo reconheceu o erro: os 10 mil se referiam a transmissões ao vivo (live events), não a reuniões. Verificação é obrigatória.
+          </div>
+        </div>
+        <div class="acc-item" style="border-color:rgba(255,255,255,0.15);border-bottom:1px solid rgba(255,255,255,0.15)">
+          <div class="acc-header" style="color:var(--paper)" onclick="toggleAcc(this)">
+            <span>Transparência: limitação central</span>
+            <span class="acc-arrow">▼</span>
+          </div>
+          <div class="acc-body" style="color:rgba(245,240,232,0.75)">
+            Não é possível saber a totalidade do raciocínio por trás do texto gerado. A caixa preta dos modelos de linguagem é tanto uma limitação técnica quanto um problema epistemológico: como confiar numa fonte que não pode explicar suas fontes?
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote dark" style="margin-top:2rem">
+        "É necessária a cautela. O usuário precisa ter conhecimento prévio sobre o assunto para analisar criticamente as informações."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 5 - ACHADOS E AUTONOMIA DOCENTE -->
+<section id="section-5" style="padding:4rem 3rem">
+  <p class="section-tag">05 · Achados centrais</p>
+  <h2 class="section-title">O que está em<br>jogo na sala<br>de aula</h2>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:var(--panel-border);margin:2rem 0">
+    <!-- Col 1 -->
+    <div style="border-right:var(--panel-border);padding:2rem">
+      <div class="big-number">3</div>
+      <p class="big-number-label" style="color:var(--ink)">Tensões centrais</p>
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.72rem;line-height:1.6;font-weight:300;margin-top:1rem;color:var(--ink)">A literatura identificou três perguntas estruturais que atravessam todo o fenômeno da plataformização educacional no Brasil.</p>
+      <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:0.75rem">
+        <div style="border:1.5px solid var(--ink);padding:0.75rem">
+          <p style="font-family:'Space Mono',monospace;font-size:0.62rem;line-height:1.5">Por que a plataformização limita o pluralismo teórico?</p>
+        </div>
+        <div style="border:1.5px solid var(--ink);padding:0.75rem">
+          <p style="font-family:'Space Mono',monospace;font-size:0.62rem;line-height:1.5">Por que ela fere a autonomia pedagógica?</p>
+        </div>
+        <div style="border:1.5px solid var(--ink);padding:0.75rem">
+          <p style="font-family:'Space Mono',monospace;font-size:0.62rem;line-height:1.5">Qual é o real problema como vem sendo praticada no Brasil?</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Col 2 -->
+    <div style="border-right:var(--panel-border);padding:2rem">
+      <svg width="80" height="80" viewBox="0 0 80 80" style="display:block;margin-bottom:1rem">
+        <circle cx="40" cy="40" r="35" fill="none" stroke="#c0392b" stroke-width="2"/>
+        <circle cx="40" cy="40" r="22" fill="#c0392b" opacity="0.15"/>
+        <circle cx="40" cy="40" r="10" fill="#c0392b"/>
+        <line x1="40" y1="5" x2="40" y2="75" stroke="#c0392b" stroke-width="0.5" stroke-dasharray="3,2"/>
+        <line x1="5" y1="40" x2="75" y2="40" stroke="#c0392b" stroke-width="0.5" stroke-dasharray="3,2"/>
+      </svg>
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.05em;margin-bottom:0.75rem">Pluralismo sob ameaça</p>
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.72rem;line-height:1.6;font-weight:300">Quando plataformas determinam via modelos preditivos quais conteúdos e métodos são "mais eficientes", marginaliza-se a construção coletiva do conhecimento. Racionalidade tecnocrática substitui diversidade epistemológica.</p>
+    </div>
+
+    <!-- Col 3 -->
+    <div style="padding:2rem">
+      <svg width="80" height="80" viewBox="0 0 80 80" style="display:block;margin-bottom:1rem">
+        <rect x="8" y="8" width="28" height="28" fill="#2c5f8a" opacity="0.8"/>
+        <rect x="44" y="8" width="28" height="28" fill="#2c5f8a" opacity="0.4"/>
+        <rect x="8" y="44" width="28" height="28" fill="#2c5f8a" opacity="0.4"/>
+        <rect x="44" y="44" width="28" height="28" fill="#2c5f8a" opacity="0.8"/>
+        <line x1="36" y1="22" x2="44" y2="22" stroke="#2c5f8a" stroke-width="2"/>
+        <line x1="22" y1="36" x2="22" y2="44" stroke="#2c5f8a" stroke-width="2"/>
+        <line x1="58" y1="36" x2="58" y2="44" stroke="#2c5f8a" stroke-width="2"/>
+        <line x1="36" y1="58" x2="44" y2="58" stroke="#2c5f8a" stroke-width="2"/>
+      </svg>
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.05em;margin-bottom:0.75rem">Colonialismo digital</p>
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.72rem;line-height:1.6;font-weight:300">Modelos globais de negócios transplantados para contextos educacionais brasileiros marginalizam culturas locais, desconsideram epistemologias situadas e reforçam exclusão tecnológica e simbólica.</p>
+    </div>
+  </div>
+
+  <div style="border:var(--panel-border);padding:2rem;background:#faf7f0;margin-top:0;border-top:none">
+    <p style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;margin-bottom:1rem;letter-spacing:0.05em">O professor que virou operador de sistema</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.78rem;line-height:1.7;font-weight:300">A adaptação forçada às plataformas durante a pandemia expôs a fragilidade da infraestrutura tecnológica e a falta de suporte técnico-pedagógico. Professores receberam ferramentas sem receber condições para usá-las criticamente. O desafio deixou de ser apenas técnico ("como usar o software") e passou a exigir compreensão sociopolítica: como essas arquiteturas modulam a atenção e o comportamento dos estudantes.</p>
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.78rem;line-height:1.7;font-weight:300">A sincronia e conexão do ensino híbrido não podem ser reduzidas à transposição de aulas para o virtual. Trata-se de um entrelaçamento onde mediação humana disputa espaço com mediação algorítmica. A preocupação central é garantir que professores não se tornem meros operadores de sistemas, mas protagonistas capazes de subverter a lógica de controle das plataformas em favor de uma educação emancipatória.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 6 - E AGORA -->
+<section id="section-6" style="padding:4rem 3rem;min-height:80vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden">
+  <svg style="position:absolute;bottom:-50px;right:-80px;pointer-events:none;opacity:0.12" viewBox="0 0 400 400" width="400" height="400">
+    <circle cx="200" cy="200" r="180" fill="#1a1009"/>
+    <circle cx="200" cy="200" r="130" fill="none" stroke="#1a1009" stroke-width="2"/>
+    <circle cx="200" cy="200" r="80" fill="none" stroke="#1a1009" stroke-width="1.5"/>
+    <circle cx="200" cy="200" r="30" fill="none" stroke="#1a1009" stroke-width="1"/>
+  </svg>
+
+  <p class="section-tag">06 · E agora?</p>
+  <h2 class="section-title" style="font-size:clamp(3rem,6vw,5rem);max-width:700px">A plataformização<br>não é neutra.<br>E pode ser diferente.</h2>
+
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:3rem;margin-top:2.5rem;align-items:start">
+    <div>
+      <div class="section-body" style="font-size:0.9rem;line-height:1.8">
+        <p>Os avanços tecnológicos convivem com tensões e contradições profundas. Plataformas não são ferramentas neutras: ampliam e intensificam disputas sobre a finalidade da educação, o acesso ao conhecimento e a construção de cidadania.</p>
+        <p>A urgência identificada na revisão bibliográfica é clara: equilibrar inovação tecnológica com valores éticos, garantindo autonomia de educadores e estudantes, preservando o pluralismo teórico e resistindo à mercantilização que transforma a educação em setor capturado pelo capitalismo de plataforma.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin:2rem 0;border:var(--panel-border)">
+        <div style="padding:1.2rem;border-right:var(--panel-border);text-align:center">
+          <svg width="44" height="44" viewBox="0 0 44 44" style="display:block;margin:0 auto 0.5rem">
+            <circle cx="22" cy="22" r="18" fill="none" stroke="#1a1009" stroke-width="2"/>
+            <text x="22" y="28" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="18" fill="#1a1009">1</text>
+          </svg>
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.05em;margin-bottom:0.4rem">Soberania digital</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.62rem;line-height:1.5;font-weight:300">Investir em infraestruturas tecnológicas próprias, como a RNP, em vez de depender de corporações estrangeiras.</p>
+        </div>
+        <div style="padding:1.2rem;border-right:var(--panel-border);text-align:center">
+          <svg width="44" height="44" viewBox="0 0 44 44" style="display:block;margin:0 auto 0.5rem">
+            <rect x="4" y="4" width="36" height="36" fill="none" stroke="#1a1009" stroke-width="2" rx="2"/>
+            <text x="22" y="28" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="18" fill="#1a1009">2</text>
+          </svg>
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.05em;margin-bottom:0.4rem">Políticas críticas</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.62rem;line-height:1.5;font-weight:300">Regulamentação que não apenas permita, mas proteja dados educacionais e restrinja a monetização de informações de estudantes.</p>
+        </div>
+        <div style="padding:1.2rem;text-align:center">
+          <svg width="44" height="44" viewBox="0 0 44 44" style="display:block;margin:0 auto 0.5rem">
+            <polygon points="22,4 40,40 4,40" fill="none" stroke="#1a1009" stroke-width="2"/>
+            <text x="22" y="34" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="18" fill="#1a1009">3</text>
+          </svg>
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.05em;margin-bottom:0.4rem">Formação reflexiva</p>
+          <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.62rem;line-height:1.5;font-weight:300">Professores que compreendem as plataformas como construções sociais carregadas de valores e interesses, não apenas como ferramentas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="border:var(--panel-border);padding:1.5rem;background:var(--ink);color:var(--paper)">
+        <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--yellow);letter-spacing:0.1em;margin-bottom:1rem">SOBRE ESTA PESQUISA</p>
+        <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.72rem;line-height:1.65;font-weight:300;margin-bottom:1rem">Este ensaio é baseado em dois trabalhos da pesquisadora Cíntia da Silva Vitorino e da professora Lynn Alves (UFBA/IHAC), desenvolvidos no âmbito da Rede de Pesquisa Comunidades Virtuais:</p>
+        <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:0.75rem;margin-top:0.75rem">
+          <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--light-blue);line-height:1.6">Capítulo de livro: "Apropriações e usos do ChatGPT no contexto da pesquisa sobre plataformização da educação" (UFBA, 2023)</p>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:0.75rem;margin-top:0.75rem">
+          <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--light-blue);line-height:1.6">Artigo: "Plataformização da educação e práxis docente: revisão bibliográfica sobre economia da atenção e transformações pedagógicas" — Colloquium Humanarum, 2025</p>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:0.75rem;margin-top:0.75rem">
+          <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(255,255,255,0.4);line-height:1.6">Financiamento: CNPq · Chamada Universal 18/2021</p>
+        </div>
+      </div>
+
+      <div style="border:var(--panel-border);border-top:none;padding:1.25rem;background:#fff8ee">
+        <p style="font-family:'Space Mono',monospace;font-size:0.6rem;opacity:0.5;margin-bottom:0.5rem">conceitos-chave</p>
+        <div class="chips" style="gap:0.3rem">
+          <span class="chip" style="font-size:0.55rem">plataformização</span>
+          <span class="chip" style="font-size:0.55rem">dataficação</span>
+          <span class="chip" style="font-size:0.55rem">capitalismo de vigilância</span>
+          <span class="chip" style="font-size:0.55rem">economia da atenção</span>
+          <span class="chip" style="font-size:0.55rem">soberania digital</span>
+          <span class="chip" style="font-size:0.55rem">colonialismo digital</span>
+          <span class="chip" style="font-size:0.55rem">práxis docente</span>
+          <span class="chip" style="font-size:0.55rem">engenharia de prompt</span>
+          <span class="chip" style="font-size:0.55rem">affordances</span>
+          <span class="chip" style="font-size:0.55rem">big data</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const sections=['cover','section-1','section-2','section-3','section-4','section-5','section-6'];
+const darkSections=['cover','section-2','section-4'];
+
+function scrollToSection(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth'});
+}
+
+function updateDots(){
+  const nav=document.getElementById('progress-dots');
+  let current='cover';
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    const rect=el.getBoundingClientRect();
+    if(rect.top<=window.innerHeight/2)current=id;
+  });
+  const isDark=darkSections.includes(current);
+  nav.classList.toggle('on-dark',isDark);
+  document.querySelectorAll('.p-dot').forEach(dot=>{
+    dot.classList.toggle('active',dot.dataset.section===current);
+  });
+}
+
+window.addEventListener('scroll',updateDots,{passive:true});
+updateDots();
+
+function toggleAcc(header){
+  const body=header.nextElementSibling;
+  const arrow=header.querySelector('.acc-arrow');
+  const isOpen=body.classList.contains('open');
+  document.querySelectorAll('.acc-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.acc-arrow').forEach(a=>a.classList.remove('open'));
+  if(!isOpen){body.classList.add('open');arrow.classList.add('open')}
+}
+
+function toggleCat(el){
+  const text=el.querySelector('.lav-cat-text');
+  const isHidden=text.style.display==='none';
+  document.querySelectorAll('.lav-cat-text').forEach(t=>t.style.display='none');
+  document.querySelectorAll('.lav-cat').forEach(c=>c.style.background='');
+  const colors=['#fff8ee','#f0f8f4','#f5f0f8','#fff0f0'];
+  document.querySelectorAll('.lav-cat').forEach((c,i)=>c.style.background=colors[i]);
+  if(isHidden){
+    text.style.display='block';
+    const clrs=['#ffeec0','#c0f0d8','#e0d0f5','#ffd0c8'];
+    const idx=Array.from(document.querySelectorAll('.lav-cat')).indexOf(el);
+    el.style.background=clrs[idx]||'#f5f0e8';
+  }
+}
+
+function animateBars(){
+  const bars=document.querySelectorAll('.bar-fill');
+  bars.forEach(bar=>{
+    const target=bar.dataset.width;
+    if(target){
+      setTimeout(()=>{bar.style.width=target+'%'},300);
+    }
+  });
+}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting&&entry.target.id==='section-2'){
+      animateBars();
+    }
+  });
+},{threshold:0.3});
+
+const s2=document.getElementById('section-2');
+if(s2)observer.observe(s2);
+</script>
