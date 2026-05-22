@@ -134,11 +134,101 @@
     50%{transform:rotate(45deg) translateY(4px)}
   }
 
-  /* SECTIONS */
-  .section{
-    min-height:100vh;
-    padding:4rem 2rem;
-    position:relative;
+  /* =========================================
+     ZUI (MAPA INTERATIVO & ZOOM)
+     ========================================= */
+  body {
+    overflow: hidden; /* Esconde a barra nativa do navegador */
+    background: var(--ink); /* Fundo infinito */
+  }
+
+  #essay-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 300vw;
+    height: 300vh;
+    transform-origin: 0 0;
+    transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  /* Estado padrão da seção (visão de mapa) */
+  .section {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto; /* Permite ler a seção interna rolando o mouse */
+    overflow-x: hidden;
+    opacity: 0.5;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    border-radius: 40px;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+    transform: scale(0.95);
+    padding: 4rem 2rem;
+  }
+
+  /* Esconde a scrollbar interna para ficar mais limpo no mapa */
+  .section::-webkit-scrollbar { width: 6px; }
+  .section::-webkit-scrollbar-track { background: transparent; }
+  .section::-webkit-scrollbar-thumb { background: var(--yellow); }
+
+  /* Efeitos quando o canvas está em modo mapa */
+  #essay-canvas.map-mode .section {
+    cursor: zoom-in;
+  }
+  #essay-canvas.map-mode .section:hover {
+    opacity: 1;
+    transform: scale(0.98);
+    box-shadow: 0 0 0 6px var(--yellow), 0 30px 100px rgba(0,0,0,0.9);
+  }
+
+  /* Quando a seção recebe o zoom */
+  .section.active {
+    opacity: 1;
+    cursor: default;
+    border-radius: 0;
+    box-shadow: none;
+    transform: scale(1);
+    z-index: 10;
+  }
+
+  /* Posições na grade 3x3 do mapa */
+  #cover     { top: 100vh; left: 100vw; } /* Centro */
+  #section-1 { top: 0; left: 100vw; }     /* Norte */
+  #section-2 { top: 0; left: 200vw; }     /* Nordeste */
+  #section-3 { top: 100vh; left: 200vw; } /* Leste */
+  #section-4 { top: 200vh; left: 200vw; } /* Sudeste */
+  #section-5 { top: 200vh; left: 100vw; } /* Sul */
+  #section-6 { top: 200vh; left: 0; }     /* Sudoeste */
+
+  /* Botão Flutuante Voltar */
+  #back-to-map {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 1000;
+    background: var(--yellow);
+    color: var(--ink);
+    border: var(--panel-border);
+    padding: 0.6rem 1.2rem;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.75rem;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  #back-to-map.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #back-to-map:hover {
+    background: var(--ink);
+    color: var(--yellow);
+    border-color: var(--yellow);
   }
 
   /* SEÇÃO 1 - O QUE É */
@@ -572,25 +662,102 @@
   #progress-dots.on-dark .p-dot{border-color:var(--paper)}
   #progress-dots.on-dark .p-dot.active{background:var(--yellow)}
 
-  /* SECTION DIVIDER */
+ /* SECTION DIVIDER */
   .divider-geo{
     width:100%;
     overflow:hidden;
     line-height:0;
   }
+
+  /* =========================================
+     ANIMAÇÕES DE DADOS (SEÇÃO 2)
+     ========================================= */
+  .float-slow { animation: float 6s ease-in-out infinite; }
+  .float-medium { animation: float 4s ease-in-out infinite reverse; }
+  .float-fast { animation: float 3s ease-in-out infinite; }
+  .pulse-data { animation: pulse 2s ease-in-out infinite; }
+
+  @keyframes float {
+    0% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-15px) translateX(10px); }
+    100% { transform: translateY(0px) translateX(0px); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.15; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(1.05); }
+  }
+
+  /* =========================================
+     TERMINAL CHATGPT INTERATIVO (SEÇÃO 4)
+     ========================================= */
+  .terminal-ui {
+    background: #0a0a0a;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .terminal-header {
+    background: #1a1a1a;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    gap: 0.4rem;
+  }
+  .term-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .term-screen {
+    padding: 1.5rem;
+    min-height: 180px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: #a8c8e8;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .term-controls {
+    padding: 1rem;
+    background: #111;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .btn-prompt {
+    background: transparent;
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    padding: 0.5rem 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+  }
+  .btn-prompt:hover, .btn-prompt.active {
+    background: var(--yellow);
+    color: var(--ink);
+  }
+  .typewriter-text::after {
+    content: '█';
+    animation: blink 1s step-start infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
 </style>
 
 <h2 class="sr-only">Ensaio digital interativo sobre plataformização da educação, apresentando pesquisa da UFBA sobre como plataformas digitais reconfiguram práticas pedagógicas no Brasil.</h2>
 
-<nav id="progress-dots" aria-label="Navegação por seções">
-  <div class="p-dot active" data-section="cover" onclick="scrollToSection('cover')" title="Capa"></div>
-  <div class="p-dot" data-section="section-1" onclick="scrollToSection('section-1')" title="O que é plataformização"></div>
-  <div class="p-dot" data-section="section-2" onclick="scrollToSection('section-2')" title="Vigilância e dados"></div>
-  <div class="p-dot" data-section="section-3" onclick="scrollToSection('section-3')" title="A pesquisa"></div>
-  <div class="p-dot" data-section="section-4" onclick="scrollToSection('section-4')" title="Experimento ChatGPT"></div>
-  <div class="p-dot" data-section="section-5" onclick="scrollToSection('section-5')" title="Achados"></div>
-  <div class="p-dot" data-section="section-6" onclick="scrollToSection('section-6')" title="E agora?"></div>
-</nav>
+<button id="back-to-map" aria-label="Voltar para a visão do mapa">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M15 18l-6-6 6-6"/></svg>
+  VOLTAR AO MAPA
+</button>
+
+<div id="essay-canvas" class="map-mode">
 
 <!-- CAPA -->
 <section id="cover">
@@ -734,8 +901,7 @@
   </div>
 
   <div class="scroll-hint">
-    <span>rolar para baixo</span>
-    <div class="arrow"></div>
+    <span>clique em um painel para explorar</span>
   </div>
 </section>
 
@@ -813,8 +979,19 @@
 <!-- SEÇÃO 2 - CAPITALISMO DE VIGILÂNCIA -->
 <section id="section-2" style="padding:4rem 3rem;position:relative;overflow:hidden">
   <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-    <circle cx="700" cy="100" r="220" fill="#c0392b" opacity="0.06"/>
-    <circle cx="100" cy="500" r="180" fill="#2c5f8a" opacity="0.07"/>
+    <circle class="pulse-data" cx="700" cy="100" r="220" fill="#c0392b"/>
+    <circle class="pulse-data" cx="100" cy="500" r="180" fill="#2c5f8a" style="animation-delay: 1s"/>
+    
+    <g class="float-slow">
+      <rect x="650" y="250" width="40" height="40" fill="#e8b84b" opacity="0.1" transform="rotate(15)"/>
+    </g>
+    <g class="float-medium">
+      <circle cx="200" cy="150" r="25" fill="#c0392b" opacity="0.1"/>
+    </g>
+    <g class="float-fast">
+      <polygon points="400,450 430,500 370,500" fill="#2e7d4f" opacity="0.1"/>
+    </g>
+
     <line x1="0" y1="150" x2="800" y2="150" stroke="#e8b84b" stroke-width="0.5" opacity="0.15"/>
     <line x1="0" y1="300" x2="800" y2="300" stroke="#e8b84b" stroke-width="0.5" opacity="0.15"/>
     <line x1="0" y1="450" x2="800" y2="450" stroke="#e8b84b" stroke-width="0.5" opacity="0.15"/>
@@ -975,49 +1152,24 @@
         <p>O objetivo era confrontar as respostas do chatbot com os referenciais teóricos que a equipe já conhecia bem. O que encontraram foi ao mesmo tempo previsível e esclarecedor.</p>
       </div>
 
-      <!-- COMICS PANELS -->
-      <div class="comics-grid" style="margin-top:1.5rem;border-color:rgba(255,255,255,0.3)">
-        <div class="comics-panel" style="background:#1a1009;border-color:rgba(255,255,255,0.2)">
-          <span class="panel-number" style="color:rgba(255,255,255,0.3)">01</span>
-          <div style="display:flex;align-items:center;justify-content:center;height:100px;margin-bottom:0.5rem">
-            <svg width="60" height="60" viewBox="0 0 60 60">
-              <circle cx="30" cy="30" r="25" fill="none" stroke="#e8b84b" stroke-width="1.5"/>
-              <text x="30" y="36" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="22" fill="#e8b84b">?</text>
-            </svg>
-          </div>
-          <p class="panel-caption" style="color:rgba(245,240,232,0.7)">Pergunta direta: "O que é plataformização da educação?"</p>
+      <div class="terminal-ui">
+        <div class="terminal-header">
+          <div class="term-dot" style="background:#c0392b"></div>
+          <div class="term-dot" style="background:#e8b84b"></div>
+          <div class="term-dot" style="background:#2e7d4f"></div>
+          <span style="margin-left:auto; font-family:'Space Mono'; font-size:0.55rem; color:#666">chatGPT_exp.sh</span>
         </div>
-        <div class="comics-panel" style="background:#1a1009;border-color:rgba(255,255,255,0.2)">
-          <span class="panel-number" style="color:rgba(255,255,255,0.3)">02</span>
-          <div style="display:flex;align-items:center;justify-content:center;height:100px;margin-bottom:0.5rem">
-            <svg width="70" height="60" viewBox="0 0 70 60">
-              <rect x="5" y="5" width="60" height="50" rx="4" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-              <line x1="15" y1="20" x2="55" y2="20" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-              <line x1="15" y1="28" x2="55" y2="28" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-              <line x1="15" y1="36" x2="42" y2="36" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-              <circle cx="12" cy="48" r="3" fill="#e8b84b"/>
-              <text x="20" y="52" font-family="'Space Mono',monospace" font-size="7" fill="#e8b84b">superficial</text>
-            </svg>
-          </div>
-          <p class="panel-caption" style="color:rgba(245,240,232,0.7)">Resposta: foco em "flexibilidade" e "personalização". Sem crítica.</p>
+        
+        <div class="term-screen" id="term-screen">
+          <div style="color:rgba(245,240,232,0.5)">> Inicializando experimento modelo LLM...</div>
+          <div style="color:rgba(245,240,232,0.5)">> Selecione um prompt abaixo para analisar a variação de resposta.</div>
         </div>
-        <div class="comics-panel" style="background:#1a1009;border-color:rgba(255,255,255,0.2)">
-          <span class="panel-number" style="color:rgba(255,255,255,0.3)">03</span>
-          <div style="display:flex;align-items:center;justify-content:center;height:100px;margin-bottom:0.5rem">
-            <svg width="70" height="60" viewBox="0 0 70 60">
-              <rect x="5" y="5" width="60" height="50" rx="4" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-              <text x="35" y="22" text-anchor="middle" font-family="'Space Mono',monospace" font-size="6" fill="rgba(255,255,255,0.5)">contexto rico</text>
-              <line x1="15" y1="26" x2="55" y2="26" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-              <line x1="15" y1="33" x2="55" y2="33" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-              <line x1="15" y1="40" x2="55" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-              <circle cx="12" cy="52" r="3" fill="#2e7d4f"/>
-              <text x="20" y="56" font-family="'Space Mono',monospace" font-size="7" fill="#7ec897">mais crítico</text>
-            </svg>
-          </div>
-          <p class="panel-caption" style="color:rgba(245,240,232,0.7)">Com contexto específico (persona de estudioso), resposta ficou mais crítica.</p>
+
+        <div class="term-controls">
+          <button class="btn-prompt" onclick="runPrompt(1, this)">> O que é plataformização?</button>
+          <button class="btn-prompt" onclick="runPrompt(2, this)">> [Com Contexto Crítico] O que é plataformização?</button>
         </div>
       </div>
-    </div>
 
     <div>
       <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--yellow);letter-spacing:0.1em;margin-bottom:1rem">ENGENHARIA DE PROMPT: O QUE APRENDEMOS</p>
@@ -1211,35 +1363,121 @@
     </div>
   </div>
 </section>
+</div> <script>
+const canvas = document.getElementById('essay-canvas');
+const backBtn = document.getElementById('back-to-map');
+const allSections = document.querySelectorAll('.section');
 
-<script>
-const sections=['cover','section-1','section-2','section-3','section-4','section-5','section-6'];
-const darkSections=['cover','section-2','section-4'];
+// Coordenadas espaciais de cada seção para o enquadramento perfeito (em viewport units)
+const positions = {
+  'cover':     { x: 100, y: 100 },
+  'section-1': { x: 100, y: 0 },
+  'section-2': { x: 200, y: 0 },
+  'section-3': { x: 200, y: 100 },
+  'section-4': { x: 200, y: 200 },
+  'section-5': { x: 100, y: 200 },
+  'section-6': { x: 0,   y: 200 }
+};
 
-function scrollToSection(id){
-  const el=document.getElementById(id);
-  if(el)el.scrollIntoView({behavior:'smooth'});
+let isMapMode = true;
+
+function goToMap() {
+  isMapMode = true;
+  canvas.classList.add('map-mode');
+  backBtn.classList.remove('visible');
+  
+  allSections.forEach(sec => sec.classList.remove('active'));
+
+  // Centraliza e encolhe o canvas 300x300vw para caber na tela. 
+  // O scale(0.3) transforma os 300vw em 90vw, deixando uma margem de 5vw de cada lado (translate 5vw, 5vh).
+  canvas.style.transform = `translate(5vw, 5vh) scale(0.3)`;
 }
 
-function updateDots(){
-  const nav=document.getElementById('progress-dots');
-  let current='cover';
-  sections.forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    const rect=el.getBoundingClientRect();
-    if(rect.top<=window.innerHeight/2)current=id;
-  });
-  const isDark=darkSections.includes(current);
-  nav.classList.toggle('on-dark',isDark);
-  document.querySelectorAll('.p-dot').forEach(dot=>{
-    dot.classList.toggle('active',dot.dataset.section===current);
-  });
+function zoomToSection(id) {
+  isMapMode = false;
+  canvas.classList.remove('map-mode');
+  const pos = positions[id];
+
+  allSections.forEach(sec => sec.classList.remove('active'));
+  const targetSec = document.getElementById(id);
+  targetSec.classList.add('active');
+  targetSec.scrollTop = 0; // Reseta a rolagem interna da seção
+  
+  backBtn.classList.add('visible');
+
+  // Move o canvas para o negativo da posição do alvo, restaurando a escala para 1
+  canvas.style.transform = `translate(-${pos.x}vw, -${pos.y}vh) scale(1)`;
 }
 
-window.addEventListener('scroll',updateDots,{passive:true});
-updateDots();
+// Interação de Clique nos painéis
+allSections.forEach(sec => {
+  sec.addEventListener('click', (e) => {
+    // Só aciona o zoom se estiver na visão geral
+    if (isMapMode) {
+      zoomToSection(sec.id);
+    }
+  });
+});
 
+backBtn.addEventListener('click', goToMap);
+
+// =========================================
+// LÓGICA DO TERMINAL CHATGPT
+// =========================================
+const termScreen = document.getElementById('term-screen');
+let typingTimeout;
+
+const promptsData = {
+  1: {
+    query: "USER: O que é plataformização da educação?",
+    response: "AI: A plataformização da educação refere-se ao uso de tecnologias digitais e plataformas on-line para facilitar e flexibilizar o ensino. Ela permite a personalização da aprendizagem, conectando alunos e professores remotamente de forma eficiente e inovadora.",
+    color: "#e88484" // Resposta superficial em tom avermelhado
+  },
+  2: {
+    query: "USER: Atue como uma pesquisadora crítica da UFBA. O que é plataformização da educação?",
+    response: "AI: Sob uma ótica crítica, a plataformização é a reconfiguração do ensino por grandes corporações (Big Techs). Não se trata apenas de 'usar tecnologia', mas de um modelo de negócios baseado em datificação, onde a interação pedagógica se torna matéria-prima para o capitalismo de vigilância e economia da atenção.",
+    color: "#7ec897" // Resposta aprofundada em tom esverdeado
+  }
+};
+
+function typeWriter(text, element, speed, callback) {
+  let i = 0;
+  element.innerHTML = '';
+  element.classList.add('typewriter-text');
+  
+  function type() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      typingTimeout = setTimeout(type, speed);
+    } else {
+      element.classList.remove('typewriter-text');
+      if(callback) callback();
+    }
+  }
+  type();
+}
+
+function runPrompt(id, btnElement) {
+  clearTimeout(typingTimeout);
+  
+  // Atualiza botões
+  document.querySelectorAll('.btn-prompt').forEach(btn => btn.classList.remove('active'));
+  btnElement.classList.add('active');
+
+  const data = promptsData[id];
+  
+  // Limpa tela e adiciona a pergunta
+  termScreen.innerHTML = `<div style="color:var(--yellow); margin-bottom:1rem;">${data.query}</div>`;
+  
+  // Cria elemento para a resposta
+  const responseDiv = document.createElement('div');
+  responseDiv.style.color = data.color;
+  termScreen.appendChild(responseDiv);
+
+  // Inicia efeito de digitação (rápido, simulando LLM)
+  typeWriter(data.response, responseDiv, 15);
+}
 function toggleAcc(header){
   const body=header.nextElementSibling;
   const arrow=header.querySelector('.acc-arrow');
