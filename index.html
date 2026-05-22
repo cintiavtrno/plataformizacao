@@ -1,7 +1,11 @@
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataformização da Educação - Ensaio Digital</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
     --ink:#1a1009;
@@ -749,9 +753,10 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
 </style>
+</head>
+<body>
 
 <h2 class="sr-only">Ensaio digital interativo sobre plataformização da educação, apresentando pesquisa da UFBA sobre como plataformas digitais reconfiguram práticas pedagógicas no Brasil.</h2>
-
 <button id="back-to-map" aria-label="Voltar para a visão do mapa">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M15 18l-6-6 6-6"/></svg>
   VOLTAR AO MAPA
@@ -1523,3 +1528,5 @@ const observer=new IntersectionObserver(entries=>{
 const s2=document.getElementById('section-2');
 if(s2)observer.observe(s2);
 </script>
+</body>
+</html>
