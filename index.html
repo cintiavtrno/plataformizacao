@@ -582,13 +582,69 @@ body{
   border-top:1px solid rgba(255,255,255,0.1);
 }
 
-@media(max-width:700px){
-  #map-view{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .card-cover,.card-s4{grid-column:1/span 2}
-  .card-s6{grid-column:1/span 2}
-  .two-col,.rec-grid{grid-template-columns:1fr}
-  .bar-row{grid-template-columns:110px 1fr auto}
-  #sort-scene{min-height:420px}
+/* ===== RESPONSIVO CELULAR ===== */
+@media(max-width:768px){
+  /* 1. Página inicial (Mapa de Vinhetas) */
+  #map-view{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .map-card {
+    min-height: 220px; /* Cartões levemente menores no celular */
+  }
+
+  /* 2. O Overlay (As páginas que abrem) */
+  #section-panel {
+    transform: scale(1) translateY(100%);
+    opacity: 1;
+    transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+    background: var(--ink); /* Garante que o fundo cubra tudo */
+  }
+  #section-overlay.visible #section-panel {
+    transform: scale(1) translateY(0);
+  }
+  .section-content {
+    padding: 4rem 1.5rem 3rem; /* Menos margem nas laterais */
+  }
+
+  /* 3. Botão Fechar e Navegação lateral */
+  #close-btn { top: 0.5rem; left: 0.5rem; }
+  #nav-dots { display: none !important; /* Esconde as bolinhas no celular */ }
+
+  /* 4. Textos e Colunas */
+  .section-title { font-size: clamp(2rem, 10vw, 3rem); }
+  .two-col, .rec-grid { 
+    grid-template-columns: 1fr; 
+    gap: 2rem; 
+  }
+  
+  /* 5. Cenas e Animações (S1, S2, S3, S4, S5) */
+  .scene-controls { flex-direction: column; }
+  .scene-btn { width: 100%; text-align: center; }
+  
+  #data-scene canvas { width: 100% !important; }
+  
+  .bar-row { 
+    grid-template-columns: 1fr; 
+    gap: 0.2rem; 
+    margin-bottom: 0.8rem;
+  }
+  .bar-label { text-align: left; }
+  .bar-track { height: 16px; width: 85%; display: inline-block; vertical-align: middle; }
+  .bar-value { display: inline-block; vertical-align: middle; margin-left: 5px; }
+
+  #sort-scene { min-height: 480px; }
+  #sort-stage svg { width: 150%; left: -25%; position: relative; } /* Escala os copinhos */
+  #cat-summary { grid-template-columns: 1fr 1fr; }
+
+  .term-controls { flex-direction: column; }
+  .btn-prompt { width: 100%; text-align: center; }
+  
+  #afford-steps { flex-direction: column; }
+  
+  .autonomy-poles { flex-direction: column; align-items: center; gap: 0.5rem; text-align: center;}
 }
 </style>
 </head>
